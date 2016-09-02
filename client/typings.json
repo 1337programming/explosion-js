@@ -1,0 +1,10 @@
+{
+  "globalDependencies": {
+    "core-js": "registry:dt/core-js#0.0.0+20160725163759",
+    "node": "registry:dt/node#6.0.0+20160831021119",
+    "zone.js": "registry:dt/zone.js#0.0.0+20160316155526"
+  },
+  "dependencies": {
+    "es6-promise": "registry:npm/es6-promise#3.0.0+20160723033700"
+  }
+}
