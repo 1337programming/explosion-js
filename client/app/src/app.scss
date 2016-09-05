@@ -1,0 +1,15 @@
+body, html {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+body {
+  font-family: 'Arvo' !important;
+  background: #4f3b5b;
+  background: -moz-radial-gradient(center, ellipse cover, #4f3b5b 0%, #231733 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #4f3b5b), color-stop(100%, #231733));
+  background: -webkit-radial-gradient(center, ellipse cover, #4f3b5b 0%, #231733 100%);
+  background: -o-radial-gradient(center, ellipse cover, #4f3b5b 0%, #231733 100%);
+  background: -ms-radial-gradient(center, ellipse cover, #4f3b5b 0%, #231733 100%);
+  background: radial-gradient(ellipse at center, #4f3b5b 0%, #231733 100%);
+}

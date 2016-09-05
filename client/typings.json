@@ -2,6 +2,7 @@
   "globalDependencies": {
     "core-js": "registry:dt/core-js#0.0.0+20160725163759",
     "node": "registry:dt/node#6.0.0+20160831021119",
+    "socket.io-client": "registry:dt/socket.io-client#1.4.4+20160317120654",
     "zone.js": "registry:dt/zone.js#0.0.0+20160316155526"
   },
   "dependencies": {

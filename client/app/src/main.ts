@@ -1,6 +1,6 @@
 import {platformBrowser} from '@angular/platform-browser';
 
-import { MainModule } from './modules/main/main.module';
+import { ExplosionModule } from './modules/explosion/explosion.module';
 
 declare let module:any;
 if (module.hot) {
@@ -11,4 +11,4 @@ if (module.hot) {
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-platformBrowserDynamic().bootstrapModule(MainModule);
+platformBrowserDynamic().bootstrapModule(ExplosionModule);
