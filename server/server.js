@@ -30,7 +30,7 @@ io.on('connection', function (socket) {
     var topicSubscription = streamEmitter.listen('Topic', function (topic) {
         socket.emit('Topic', topic);
     });
-    var buzzWordSubscription = streamEmitter.listen('Topic', function (buzzword) {
+    var buzzWordSubscription = streamEmitter.listen('Buzzword', function (buzzword) {
         socket.emit('Buzzword', buzzword);
     });
     socket.on('disconnect', function () {

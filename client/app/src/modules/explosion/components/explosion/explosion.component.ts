@@ -4,7 +4,6 @@ import {Location} from '@angular/common';
 import {Remote} from "../../../../common/services/remote.service";
 import {Random} from "../../../../common/services/random.service";
 import {Samples} from "../../../../common/services/samples.service";
-{}
 let template = require('./views/explosion.html');
 let style = require('!!raw!sass!./views/explosion.scss');
 

@@ -2,13 +2,18 @@ import {Injectable, Inject, NgZone} from '@angular/core';
 const loader = require('webaudio-buffer-loader');
 
 const NOTE_SAMPLES = {
-  C4: require("file!app/samples/n_C4.mp3"),
-  C5: require("file!app/samples/n_C5.mp3"),
-  D4: require("file!app/samples/n_D4.mp3"),
-  D5: require("file!app/samples/n_D5.mp3"),
-  E5: require("file!app/samples/n_E5.mp3"),
-  F4: require("file!app/samples/n_F4.mp3"),
-  G4: require("file!app/samples/n_G4.mp3"),
+  C4: require('file!app/samples/n_C4.mp3'),
+  C5: require('file!app/samples/n_C5.mp3'),
+  D4: require('file!app/samples/n_D4.mp3'),
+  D5: require('file!app/samples/n_D5.mp3'),
+  E5: require('file!app/samples/n_E5.mp3'),
+  F4: require('file!app/samples/n_F4.mp3'),
+  G4: require('file!app/samples/n_G4.mp3'),
+  explosion1: require('file!app/samples/explosion-1.mp3'),
+  explosion2: require('file!app/samples/explosion-2.mp3'),
+  rocket1: require('file!app/samples/rocket-1.mp3'),
+  rocket2: require('file!app/samples/rocket-2.mp3'),
+  rocket3: require('file!app/samples/rocket-3.mp3'),
 };
 
 @Injectable()
@@ -23,11 +28,11 @@ export class Samples {
     }
   }
   
-  getSample(note:string):any {
-    if (!this.sampleCache.has(note)) {
+  getSample(key:string):any {
+    if (!this.sampleCache.has(key)) {
       this.totalSampleCount++;
-      this.sampleCache.set(note, new Promise((resolve, reject) => {
-        loader(NOTE_SAMPLES[note], this.audioCtx, (err, loadedBuffer) => {
+      this.sampleCache.set(key, new Promise((resolve, reject) => {
+        loader(NOTE_SAMPLES[key], this.audioCtx, (err, loadedBuffer) => {
           if (err) {
             reject(err);
           } else {
@@ -37,7 +42,7 @@ export class Samples {
         });
       }));
     }
-    return this.sampleCache.get(note);
+    return this.sampleCache.get(key);
   }
   
   sentimentValidator(score) {

@@ -41,7 +41,7 @@ io.on('connection', (socket) => {
     socket.emit('Topic', topic);
   });
   
-  let buzzWordSubscription = streamEmitter.listen('Topic', (buzzword) => {
+  let buzzWordSubscription = streamEmitter.listen('Buzzword', (buzzword) => {
     socket.emit('Buzzword', buzzword);
   });
   

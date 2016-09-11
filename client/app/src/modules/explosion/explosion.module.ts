@@ -12,11 +12,18 @@ import {DashboardComponent} from 'app/src/modules/explosion/components/explosion
 import {ExplosionComponent} from 'app/src/modules/explosion/components/explosion/explosion.component';
 import {LoadingIndicator} from "app/src/common/components/loading-indicator/loading-indicator.component";
 import {Chime} from "./components/explosion/components/dashboard/components/chime/chime.component";
+import {Fireworks} from './components/explosion/components/home/components/fireworks.component';
+import {FireworkTest} from './components/explosion/components/fireworks-test/fireworks-test.component';
 
 // Directives
 import {ForAnyOrder} from 'app/src/common/directives/for-any-order.directive';
 
-import {ROUTES} from './router/explosion-router';
+// Routes
+import {ROUTES} from './router/explosion.router';
+
+// Services
+import {Audio} from 'app/src/common/services/audio.service';
+import {Samples} from 'app/src/common/services/samples.service';
 
 // Custom Components
 
@@ -24,7 +31,9 @@ import {ROUTES} from './router/explosion-router';
   imports: [
     BrowserModule, ReactiveFormsModule, FormsModule, HttpModule, RouterModule.forRoot(ROUTES, {useHash: true})
   ],
-  declarations: [ExplosionComponent, FooterComponent, NavbarComponent, HomeComponent, DashboardComponent, Chime, LoadingIndicator, ForAnyOrder],
+  declarations: [ExplosionComponent, FooterComponent, NavbarComponent, HomeComponent,
+    DashboardComponent, Chime, LoadingIndicator, ForAnyOrder, Fireworks, FireworkTest],
+  providers: [Audio, Samples],
   bootstrap: [ExplosionComponent]
 })
 export class ExplosionModule {

@@ -18,3 +18,7 @@ import 'core-js/es6/reflect';
 import 'core-js/es7/reflect';
 import 'zone.js/dist/zone';
 import 'ts-helpers';
+
+import 'web-animations-js';
+import './webkit-audio-context-monkeypatch';
+require('stereo-panner-node').polyfill();
