@@ -23,8 +23,11 @@ let style = require('!!raw!sass!./views/explosion.scss');
 })
 export class ExplosionComponent {
   
-  bufferLoaded = false;
-  constructor(@Inject('size') private size, private samples:Samples) {
+  public bufferLoaded = false;
+  public size:any;
+  
+  constructor(private samples:Samples) {
+    this.size = {};
     this.onWindowResize();
     setTimeout(() => this.bufferLoaded = true, 4200);
   }

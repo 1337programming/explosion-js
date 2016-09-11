@@ -1,26 +1,29 @@
-<div *ngIf="showNotification" class="notifications elementToFadeInAndOut">
-    <div class="notification notify">
-        Redesign Conf
+<div *ngIf="!expload">
+    <div *ngIf="showNotification" class="notifications elementToFadeInAndOut">
+        <div class="notification notify">
+            Redesign Conf
+        </div>
+    </div>
+    <div class="wrap center"> <!-- Just to center ver and hor -->
+        <form (submit)="submitTopic(topic)">
+            <div>
+                <div class="wrap-label">
+                    <label for="topic">Tech Topics</label>
+                    <p class="iconicfill-pen-alt2"></p>
+                </div>
+                <input type="text" id="topic" name="topic" autocomplete="off" autocorrect="off" [(ngModel)]="topic">
+            </div>
+        </form>
+
+        <form [hidden]="!showBuzzword" (submit)="submitBuzzword(buzzword)">
+            <div>
+                <div class="wrap-label">
+                    <label for="buzzword">Buzzwords</label>
+                    <p class="iconicfill-pen-alt2"></p>
+                </div>
+                <input type="text" id="buzzword" name="buzzword" autocomplete="off" autocorrect="off" [(ngModel)]="buzzword">
+            </div>
+        </form>
     </div>
 </div>
-<div class="wrap center"> <!-- Just to center ver and hor -->
-    <form (submit)="submitTopic(topic)">
-        <div>
-            <div class="wrap-label">
-                <label for="topic">Tech Topics</label>
-                <p class="iconicfill-pen-alt2"></p>
-            </div>
-            <input type="text" id="topic" name="topic" autocomplete="off" autocorrect="off" [(ngModel)]="topic">
-        </div>
-    </form>
-
-    <form [hidden]="!showBuzzword" (submit)="submitBuzzword(buzzword)">
-        <div>
-            <div class="wrap-label">
-                <label for="buzzword">Buzzwords</label>
-                <p class="iconicfill-pen-alt2"></p>
-            </div>
-            <input type="text" id="buzzword" name="buzzword" autocomplete="off" autocorrect="off" [(ngModel)]="buzzword">
-        </div>
-    </form>
-</div>
+<fireworks [hidden]="!expload"></fireworks>
