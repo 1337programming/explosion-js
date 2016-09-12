@@ -1,0 +1,7 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "scripts": {
+    "preinstall": "cd client/ && npm install && cd ../controller && npm install && cd ../server && npm install"
+  }
+}
