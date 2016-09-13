@@ -5,7 +5,8 @@
     "postinstall": "typings install",
     "start": "webpack-dev-server --browser --hot --inline --progress --profile --colors --display-error-details --display-cached",
     "build-serve": "webpack --prod --browser --progress --profile --colors --display-error-details --display-cached --optimize-occurrence-order --optimize-dedupe",
-    "build": "webpack --prod --progress --profile --colors --display-error-details --display-cached --optimize-occurrence-order --optimize-dedupe"
+    "build": "webpack --prod --progress --profile --colors --display-error-details --display-cached --optimize-occurrence-order --optimize-dedupe",
+    "aot": "ngc -p ."
   },
   "devDependencies": {
     "css-loader": "^0.24.0",
