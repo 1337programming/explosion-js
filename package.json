@@ -7,6 +7,6 @@
     "server": "cd server && npm start",
     "form": "node controller/fire_form.js",
     "explosion": "node controller/fire_explosion.js",
-    "build-client": "cd client/ && npm build"
+    "build-client": "cd client/ && npm run build"
   }
 }

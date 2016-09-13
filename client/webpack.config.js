@@ -24,7 +24,12 @@ config.plugins.push(new webpack.DefinePlugin({
 }));
 if (argv.prod) {
   config.plugins.push(new HtmlWebpackPlugin({template: path.resolve(__dirname, 'app/index.html')}));
-  config.plugins.push(new FaviconsWebpackPlugin(path.resolve(__dirname, 'app/img/aowp-logo2.png')));
+  var nodeVersion = Number(process.version.match(/^v(\d+\.\d+)/)[1]);
+  if (nodeVersion >= 6) {
+    config.plugins.push(new FaviconsWebpackPlugin(path.resolve(__dirname, 'app/img/aowp-logo2.png')));
+  } else {
+    console.log('Cannot build favicons with version of node', nodeVersion, 'Use version 6+');
+  }
   /*
    config.plugins.push(new webpack.optimize.UglifyJsPlugin({
    minimize: true,
