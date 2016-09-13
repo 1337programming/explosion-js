@@ -123,7 +123,21 @@ export class Fireworks implements AfterViewInit, OnInit {
     this.context = this.canvas.getContext('2d');
     
     this.canvasLoop();
-    this.run();
+  }
+  
+  public run(): void {
+    this.showTarget = false;
+    let initialLaunchCount: number = 40, index:number;
+    while (initialLaunchCount--) {
+      setTimeout(() => {
+        index = rand(0, this.rocketSamples.length - 1);
+        let fInstance: FireworkI = {
+          audioStop: this.audio.play(this.rocketSamples[index]),
+          firework: new Firework(this.cw / 2, this.ch, rand(50, this.cw - 50), rand(50, this.ch / 2) - 50)
+        };
+        this.fireworks.push(fInstance);
+      }, initialLaunchCount * 500);
+    }
   }
   
   private canvasLoop() {
@@ -230,21 +244,6 @@ export class Fireworks implements AfterViewInit, OnInit {
     this.particles = [];
     this.fireworks = [];
     this.context.clearRect(0, 0, this.cw, this.ch);
-  }
-  
-  private run(): void {
-    this.showTarget = false;
-    let initialLaunchCount: number = 40, index:number;
-    while (initialLaunchCount--) {
-      setTimeout(() => {
-        index = rand(0, this.rocketSamples.length - 1);
-        let fInstance: FireworkI = {
-          audioStop: this.audio.play(this.rocketSamples[index]),
-          firework: new Firework(this.cw / 2, this.ch, rand(50, this.cw - 50), rand(50, this.ch / 2) - 50)
-        };
-        this.fireworks.push(fInstance);
-      }, initialLaunchCount * 500);
-    }
   }
   
   // Mouse Events

@@ -4,6 +4,7 @@
   "scripts": {
     "postinstall": "typings install",
     "start": "webpack-dev-server --browser --hot --inline --progress --profile --colors --display-error-details --display-cached",
+    "build-serve": "webpack --prod --browser --progress --profile --colors --display-error-details --display-cached --optimize-occurrence-order --optimize-dedupe",
     "build": "webpack --prod --progress --profile --colors --display-error-details --display-cached --optimize-occurrence-order --optimize-dedupe"
   },
   "devDependencies": {
@@ -33,7 +34,7 @@
     "webpack-dev-server": "^1.15.1",
     "yargs": "^5.0.0"
   },
-  "dependencies": {
+  "olddependencies": {
     "@angular/common": "^2.0.0-rc.6",
     "@angular/compiler": "^2.0.0-rc.6",
     "@angular/core": "^2.0.0-rc.6",
@@ -46,6 +47,7 @@
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "es6-shim": "^0.35.1",
+    "firebase": "^3.3.2",
     "font-awesome": "^4.6.3",
     "node-sass": "^3.8.0",
     "socket.io-client": "^1.4.8",
@@ -53,5 +55,7 @@
     "web-animations-js": "2.2.1",
     "webaudio-buffer-loader": "^1.0.1",
     "zone.js": "^0.6.17"
+  },
+  "dependencies": {
   }
 }

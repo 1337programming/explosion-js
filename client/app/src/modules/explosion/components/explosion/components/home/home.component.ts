@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {HomeService} from "./services/home.service";
 import {Response} from "@angular/http";
+import {Fireworks} from './components/fireworks.component';
 let template = require('./views/home.html');
 let style = require('!!raw!sass!./views/home.scss');
 let notification = require('!!raw!sass!./views/notification.scss');
@@ -13,6 +14,8 @@ let fade = require('!!raw!sass!./views/fade-in-out.scss');
   providers: [HomeService]
 })
 export class HomeComponent implements OnInit {
+  
+  @ViewChild(Fireworks) fireworks: Fireworks;
   
   public topic: string;
   public buzzword: string;
@@ -34,6 +37,7 @@ export class HomeComponent implements OnInit {
     });
     this.homeService.detonate.subscribe((res) => {
       this.expload = true;
+      this.fireworks.run();
     });
   }
   
