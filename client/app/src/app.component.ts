@@ -1,15 +1,18 @@
 import {Component, Inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {Location} from '@angular/common';
-import {Remote} from "../../../../common/services/remote.service";
-import {Random} from "../../../../common/services/random.service";
-import {Samples} from "../../../../common/services/samples.service";
-let template = require('./views/explosion.html');
-let style = require('!!raw!sass!./views/explosion.scss');
+import {Remote} from './common/services/remote.service';
+import {Random} from './common/services/random.service';
+import {Samples} from './common/services/samples.service';
 
 @Component({
   selector: 'explosion',
-  template: template,
+  template: `
+        <div (window:resize)="onWindowResize()">
+            <router-outlet [hidden]="isLoading()"></router-outlet>
+            <!--<loading-indicator *ngIf="isLoading()" [progress]="getLoadProgress()"></loading-indicator>-->
+        </div>
+            `,
   providers: [
     Remote,
     Random,
@@ -18,10 +21,9 @@ let style = require('!!raw!sass!./views/explosion.scss');
     {provide: 'audioContext', useValue: new (window['AudioContext'] || window['webkitAudioContext']) },
     {provide: 'size', useValue: {width: 1280, height: 780}},
     {provide: 'notes', useValue: ['C4', 'G4', 'C5', 'D5', 'E5']}
-  ],
-  styles: [style]
+  ]
 })
-export class ExplosionComponent {
+export class AppComponent {
   
   public bufferLoaded = false;
   public size:any;

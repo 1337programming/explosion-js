@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HomeService} from "./services/home.service";
 import {Response} from "@angular/http";
-import {Fireworks} from './components/fireworks.component';
+import {Fireworks} from './components/fireworks/fireworks.component';
 let template = require('./views/home.html');
 let style = require('!!raw!sass!./views/home.scss');
 let notification = require('!!raw!sass!./views/notification.scss');

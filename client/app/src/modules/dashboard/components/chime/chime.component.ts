@@ -41,7 +41,7 @@ let ChimeStyle = require('!!raw!sass!./views/chime.scss');
         )
       ])
     ])
-    
+  
   ]
 })
 

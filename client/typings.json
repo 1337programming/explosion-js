@@ -6,7 +6,6 @@
     "zone.js": "registry:dt/zone.js#0.0.0+20160316155526"
   },
   "dependencies": {
-    "es6-promise": "registry:npm/es6-promise#3.0.0+20160723033700",
-    "firebase": "registry:npm/firebase#3.0.5+20160723033700"
+    "es6-promise": "registry:npm/es6-promise#3.0.0+20160723033700"
   }
 }
