@@ -7,7 +7,7 @@ declare const WEBPACK_ENV:string;
 declare const WEBPACK_PROD:boolean;
 
 export let Settings = {
-  API_ENDPOINT: WEBPACK_API_ENDPOINT,
+  API_ENDPOINT: `${WEBPACK_API_ENDPOINT}/ws`,
   ENV: WEBPACK_ENV,
   PROD: WEBPACK_PROD
 };

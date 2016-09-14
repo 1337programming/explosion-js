@@ -17,6 +17,7 @@ export class HomeService {
   constructor(private http:Http) {
     this.buzzwordAdded = new EventEmitter();
     this.detonate = new EventEmitter();
+    console.log(Settings.API_ENDPOINT);
     this.socket = io.connect(`${Settings.API_ENDPOINT}`);
     this.headers = new Headers();
     this.headers.append('Content-Type', 'application/json');

@@ -30,10 +30,12 @@ io.on('connection', (socket) => {
   console.log('a user connected');
   
   let formChangeSubscription = streamEmitter.listen('FormChange', () => {
+    console.log('Buzzword field added');
     socket.emit('FormChange', null);
   });
   
   let explosionSubscription = streamEmitter.listen('Explosion', () => {
+    console.log('Explosion Emitted');
     socket.emit('Explosion', null);
   });
   
