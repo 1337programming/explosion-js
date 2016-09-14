@@ -2,6 +2,7 @@
 var authentication_1 = require('./src/authentication');
 var proxies_1 = require('./src/proxies');
 var stream_emitter_1 = require('./src/stream-emitter');
+var esHelper_1 = require('./src/esHelper');
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
@@ -11,7 +12,8 @@ var bodyParser = require('body-parser');
 var Config = require(path.resolve('../env.json'));
 // Emitter used and shared across the server
 var streamEmitter = new stream_emitter_1.StreamEmitter();
-var Router = proxies_1.DefineProxies(streamEmitter);
+var esHelper = new esHelper_1.EsHelper();
+var Router = proxies_1.DefineProxies(streamEmitter, esHelper);
 var AuthInstance = new authentication_1.Authentication(Config.SERVER_CONFIG.PORT);
 app.use(bodyParser.json());
 app.use(AuthInstance.allowCrossDomain);
