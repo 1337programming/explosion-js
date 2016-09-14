@@ -24,10 +24,12 @@ export class HomeService {
   }
   
   public submitQuestion(input:string, name:string):Observable<Response> {
+    console.log(input, name);
     let body = {
-      input:input
+      input:input,
+      name:name
     };
-    return this.http.post(`${Settings.API_ENDPOINT}/api/${name}`, body, this.headers);
+    return this.http.post(`${Settings.API_ENDPOINT}/api/answer`, body, this.headers);
   }
   
   public sendTopic(topic:string):Observable<Response> {

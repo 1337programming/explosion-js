@@ -5,7 +5,7 @@
         </div>
     </div>
     <div class="wrap center"> <!-- Just to center ver and hor -->
-        <form *ngFor="let question of questions" (submit)="submitQuestion(topic, question.name)">
+        <form *ngFor="let question of questions" (submit)="submitQuestion(question.input, question.name)">
             <div>
                 <div class="wrap-label">
                     <label>{{question.description}}</label>
