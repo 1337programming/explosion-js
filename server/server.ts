@@ -3,6 +3,7 @@ declare let require: any;
 import {Authentication} from './src/authentication';
 import {DefineProxies} from './src/proxies';
 import {StreamEmitter} from './src/stream-emitter';
+import {EsHelper} from './src/esHelper';
 
 let express = require('express');
 let app = express();
@@ -13,10 +14,12 @@ let bodyParser = require('body-parser');
 
 let Config = require(path.resolve('../env.json'));
 
+
 // Emitter used and shared across the server
 let streamEmitter = new StreamEmitter();
+let esHelper = new EsHelper();
 
-let Router = DefineProxies(streamEmitter);
+let Router = DefineProxies(streamEmitter,esHelper);
 let AuthInstance = new Authentication(Config.SERVER_CONFIG.PORT);
 app.use(bodyParser.json());
 app.use(AuthInstance.allowCrossDomain);
@@ -61,3 +64,6 @@ http.listen(Config.SERVER_CONFIG.PORT, () => {
   console.log('listening on *:3000');
 });
 
+
+
+  

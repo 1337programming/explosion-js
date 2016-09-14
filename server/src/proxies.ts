@@ -1,51 +1,83 @@
 declare let require: any;
 
-export function DefineProxies (emitter) {
+export function DefineProxies(emitter, esHelper) {
   let router = require('express').Router();
-  
+
   router.get('/', (req, res) => {
-    return res.status(200).send({message: 'Test'});
+    return res.status(200).send({ message: 'Test' });
   });
-  
+
   router.post('/topic', (req, res) => {
     let topic = req.body.input;
     console.log(topic);
     if (!topic) {
       return res.status(400).send(`${new Date()} Missing topic field`);
     }
-    
+
     // DO SOMETHING...
-    
-    let body:any = {
+
+    let body: any = {
       text: topic,
       username: 'Patrick',
       sentiment: 1
     };
     emitter.notifyTopic(body);
-    
+
     return res.status(200).send(`${new Date()} Topic sent`);
   });
-  
+
+  router.post('/answer', (req, res) => {
+    if (req.body) {
+      console.log(req.body);
+      res.statusCode = 200;
+      let answer = req.body.input;
+      esHelper.createEsObject('survey', answer);
+
+      let body: any = {
+        text: answer,
+        username: 'Patrick',
+        sentiment: 1
+      };
+      emitter.notifyTopic(body);
+
+      res.send("OK");
+    } else {
+      res.statusCode = 500;
+      res.send("Error. No Request data?");
+    }
+    // let topic = req.body.input;
+    // if (!topic) {
+    //   return res.status(400).send(`${new Date()} Missing buzzword field`);
+    // }
+
+    // DO SOMETHING...
+
+    // return res.status(200).send(`${new Date()} Topic sent`);
+  });
+
   router.post('/buzzword', (req, res) => {
     let topic = req.body.input;
     if (!topic) {
       return res.status(400).send(`${new Date()} Missing buzzword field`);
     }
-    
+
     // DO SOMETHING...
-    
+
     return res.status(200).send(`${new Date()} Topic sent`);
   });
-  
+
   router.get('/activate-buzzword', (req, res) => {
     emitter.notifyFormChange();
     return res.status(200).send(`${new Date()} Updating Form`);
   });
-  
+
   router.get('/activate-explosion', (req, res) => {
     emitter.notifyExplosion();
     return res.status(200).send(`${new Date()} Flagging Explosion`);
   });
-  
+
   return router;
+
 }
+
+

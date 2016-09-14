@@ -1,11 +1,11 @@
 "use strict";
-function DefineProxies(emitter) {
+function DefineProxies(emitter, esHelper) {
     var router = require('express').Router();
     router.get('/', function (req, res) {
         return res.status(200).send({ message: 'Test' });
     });
     router.post('/topic', function (req, res) {
-        var topic = req.body.topic;
+        var topic = req.body.input;
         console.log(topic);
         if (!topic) {
             return res.status(400).send(new Date() + " Missing topic field");
@@ -19,8 +19,33 @@ function DefineProxies(emitter) {
         emitter.notifyTopic(body);
         return res.status(200).send(new Date() + " Topic sent");
     });
+    router.post('/answer', function (req, res) {
+        if (req.body) {
+            console.log(req.body);
+            res.statusCode = 200;
+            var answer = req.body.input;
+            esHelper.createEsObject('survey', answer);
+            var body = {
+                text: answer,
+                username: 'Patrick',
+                sentiment: 1
+            };
+            emitter.notifyTopic(body);
+            res.send("OK");
+        }
+        else {
+            res.statusCode = 500;
+            res.send("Error. No Request data?");
+        }
+        // let topic = req.body.input;
+        // if (!topic) {
+        //   return res.status(400).send(`${new Date()} Missing buzzword field`);
+        // }
+        // DO SOMETHING...
+        // return res.status(200).send(`${new Date()} Topic sent`);
+    });
     router.post('/buzzword', function (req, res) {
-        var topic = req.body.buzzword;
+        var topic = req.body.input;
         if (!topic) {
             return res.status(400).send(new Date() + " Missing buzzword field");
         }
