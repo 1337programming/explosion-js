@@ -1,13 +1,13 @@
-// Webpack Build Variables
-// webpack inserts variables into global properties
 import * as Firebase from 'firebase';
 
+// Webpack Build Variables
+// webpack inserts variables into global properties
 declare const WEBPACK_API_ENDPOINT:string;
 declare const WEBPACK_ENV:string;
 declare const WEBPACK_PROD:boolean;
 
 export let Settings = {
-  API_ENDPOINT: `${WEBPACK_API_ENDPOINT}/ws`,
+  API_ENDPOINT: `${WEBPACK_API_ENDPOINT}`,
   ENV: WEBPACK_ENV,
   PROD: WEBPACK_PROD
 };
@@ -19,5 +19,8 @@ let config = {
   storageBucket: "taworkshop-32e79.appspot.com"
 };
 Firebase.initializeApp(config);
+
+var database = Firebase.database();
+console.log('database', database);
 
 export const FIREBASE = Firebase;

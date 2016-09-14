@@ -22,9 +22,11 @@ app.get('/', function (req, res) {
 io.on('connection', function (socket) {
     console.log('a user connected');
     var formChangeSubscription = streamEmitter.listen('FormChange', function () {
+        console.log('Buzzword field added');
         socket.emit('FormChange', null);
     });
     var explosionSubscription = streamEmitter.listen('Explosion', function () {
+        console.log('Explosion Emitted');
         socket.emit('Explosion', null);
     });
     var topicSubscription = streamEmitter.listen('Topic', function (topic) {

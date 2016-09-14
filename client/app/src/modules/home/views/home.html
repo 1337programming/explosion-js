@@ -5,23 +5,13 @@
         </div>
     </div>
     <div class="wrap center"> <!-- Just to center ver and hor -->
-        <form (submit)="submitTopic(topic)">
+        <form *ngFor="let question of questions" (submit)="submitQuestion(topic, question.name)">
             <div>
                 <div class="wrap-label">
-                    <label for="topic">Tech Topics</label>
+                    <label>{{question.description}}</label>
                     <p class="iconicfill-pen-alt2"></p>
                 </div>
-                <input type="text" id="topic" name="topic" autocomplete="off" autocorrect="off" [(ngModel)]="topic">
-            </div>
-        </form>
-
-        <form [hidden]="!showBuzzword" (submit)="submitBuzzword(buzzword)">
-            <div>
-                <div class="wrap-label">
-                    <label for="buzzword">Buzzwords</label>
-                    <p class="iconicfill-pen-alt2"></p>
-                </div>
-                <input type="text" id="buzzword" name="buzzword" autocomplete="off" autocorrect="off" [(ngModel)]="buzzword">
+                <input type="text" id="{{question.name}}" name="{{question.name}}" autocomplete="off" autocorrect="off" [(ngModel)]="input">
             </div>
         </form>
     </div>

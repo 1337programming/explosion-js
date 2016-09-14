@@ -3,7 +3,7 @@ import {Subject} from 'rxjs/Subject';
 import {Random} from 'app/src/common/services/random.service';
 import {Samples} from 'app/src/common/services/samples.service';
 import {Audio} from 'app/src/common/services/audio.service';
-import {Settings} from 'app/src/core/settings/settings';
+import {Settings, FIREBASE} from 'app/src/core/settings/settings';
 import 'rxjs/add/operator/bufferTime';
 let io = require('socket.io-client');
 
@@ -42,6 +42,8 @@ export class DashboardComponent {
               private samples: Samples,
               @Inject('notes') private notes,
               @Inject('audioContext') private audioCtx) {
+    
+    
     this.socket = io.connect(Settings.API_ENDPOINT);
     this.socket.on('Topic', (topic) => {
       this.renderChime(topic);

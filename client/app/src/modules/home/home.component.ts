@@ -2,10 +2,20 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {HomeService} from "./services/home.service";
 import {Response} from "@angular/http";
 import {Fireworks} from './components/fireworks/fireworks.component';
+import {FIREBASE} from '../../core/settings/settings';
 let template = require('./views/home.html');
 let style = require('!!raw!sass!./views/home.scss');
 let notification = require('!!raw!sass!./views/notification.scss');
 let fade = require('!!raw!sass!./views/fade-in-out.scss');
+
+interface SurveyQuestions {
+  questions: Array<Question>
+}
+interface Question {
+  description: string;
+  name: string;
+  input?: string;
+}
 
 @Component({
   selector: 'home',
@@ -23,12 +33,20 @@ export class HomeComponent implements OnInit {
   public showBuzzword: boolean;
   public expload: boolean;
   
+  private questions:Array<Question>;
+  
   constructor(private homeService: HomeService) {
     this.topic = '';
     this.buzzword = '';
     this.showNotification = false;
     this.showBuzzword = false;
     this.expload = false;
+    let questionRef = FIREBASE.database().ref('survey-questions');
+    console.log('reference', questionRef);
+    questionRef.on('value', (data) => {
+      let surveyQuestions = data.val();
+      this.questions = surveyQuestions.questions;
+    });
   }
   
   public ngOnInit() {
@@ -39,6 +57,21 @@ export class HomeComponent implements OnInit {
       this.expload = true;
       this.fireworks.run();
     });
+  }
+  
+  private submitQuestion(input, name) {
+    this.homeService.submitQuestion(input, name).subscribe((res: Response) => {
+      console.log(res);
+      this.clearInput(name);
+    });
+  }
+  
+  private clearInput(name) {
+    for (let i:number = 0; i < this.questions.length; i++) {
+      if (this.questions[i].name === name) {
+        this.questions[i].input = '';
+      }
+    }
   }
   
   private submitTopic(topic) {

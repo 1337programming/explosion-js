@@ -2,8 +2,7 @@ import {Injectable, EventEmitter} from '@angular/core';
 import {Http, Headers, Response} from "@angular/http";
 import {Observable} from 'rxjs/observable';
 import * as io from 'socket.io-client';
-
-import {Settings} from 'app/src/core/settings/settings';
+import {Settings, FIREBASE} from 'app/src/core/settings/settings';
 
 @Injectable()
 export class DashboardService {
@@ -38,6 +37,7 @@ export class DashboardService {
   }
   
   private setEvents() {
+
     this.socket.on('FormChange', (res:any) => {
       this.buzzwordAdded.emit(null);
     });

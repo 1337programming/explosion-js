@@ -2,8 +2,7 @@ import {Injectable, EventEmitter} from '@angular/core';
 import {Http, Headers, Response} from "@angular/http";
 import {Observable} from 'rxjs/observable';
 import * as io from 'socket.io-client';
-
-import {Settings} from 'app/src/core/settings/settings';
+import {Settings, FIREBASE} from 'app/src/core/settings/settings';
 
 @Injectable()
 export class HomeService {
@@ -24,16 +23,23 @@ export class HomeService {
     this.setEvents();
   }
   
+  public submitQuestion(input:string, name:string):Observable<Response> {
+    let body = {
+      input:input
+    };
+    return this.http.post(`${Settings.API_ENDPOINT}/api/${name}`, body, this.headers);
+  }
+  
   public sendTopic(topic:string):Observable<Response> {
     let body = {
-      topic:topic
+      input:topic
     };
     return this.http.post(`${Settings.API_ENDPOINT}/api/topic`, body, this.headers);
   }
   
   public sendBuzzword(buzzword:string):Observable<Response> {
     let body = {
-      buzzword: buzzword
+      input: buzzword
     };
     return this.http.post(`${Settings.API_ENDPOINT}/api/topic`, body, this.headers);
   }

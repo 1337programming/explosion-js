@@ -8,7 +8,7 @@ export function DefineProxies (emitter) {
   });
   
   router.post('/topic', (req, res) => {
-    let topic = req.body.topic;
+    let topic = req.body.input;
     console.log(topic);
     if (!topic) {
       return res.status(400).send(`${new Date()} Missing topic field`);
@@ -27,7 +27,7 @@ export function DefineProxies (emitter) {
   });
   
   router.post('/buzzword', (req, res) => {
-    let topic = req.body.buzzword;
+    let topic = req.body.input;
     if (!topic) {
       return res.status(400).send(`${new Date()} Missing buzzword field`);
     }
