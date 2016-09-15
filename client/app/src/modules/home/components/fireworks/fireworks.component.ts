@@ -126,8 +126,13 @@ export class Fireworks implements AfterViewInit, OnInit {
   }
   
   public run(): void {
-    this.showTarget = false;
     let initialLaunchCount: number = 40, index:number;
+    let delay:number = 500;
+    if (this.detectmob()) {
+      initialLaunchCount = 20;
+      delay = 1000;
+    }
+    this.showTarget = false;
     while (initialLaunchCount--) {
       setTimeout(() => {
         index = rand(0, this.rocketSamples.length - 1);
@@ -136,7 +141,23 @@ export class Fireworks implements AfterViewInit, OnInit {
           firework: new Firework(this.cw / 2, this.ch, rand(50, this.cw - 50), rand(50, this.ch / 2) - 50)
         };
         this.fireworks.push(fInstance);
-      }, initialLaunchCount * 500);
+      }, initialLaunchCount * delay);
+    }
+  }
+  
+  private detectmob() {
+    if( navigator.userAgent.match(/Android/i)
+      || navigator.userAgent.match(/webOS/i)
+      || navigator.userAgent.match(/iPhone/i)
+      || navigator.userAgent.match(/iPad/i)
+      || navigator.userAgent.match(/iPod/i)
+      || navigator.userAgent.match(/BlackBerry/i)
+      || navigator.userAgent.match(/Windows Phone/i)
+    ){
+      return true;
+    }
+    else {
+      return false;
     }
   }
   
