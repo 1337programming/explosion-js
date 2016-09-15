@@ -50,8 +50,8 @@ export class Fireworks implements AfterViewInit, OnInit {
   public showShockwave: boolean;
   public showTarget: boolean;
   
-  private rocketSamples:Array<any>;
-  private explosionSamples:Array<any>;
+  private rocketSamples: Array<any>;
+  private explosionSamples: Array<any>;
   
   constructor(private samples: Samples, private audio: Audio) {
     this.width = innerWidth;
@@ -88,12 +88,12 @@ export class Fireworks implements AfterViewInit, OnInit {
   
   ngOnInit() {
     /*this.samples.getSample('explosion1').then(sample => {
-      this.explosionSamples.push(sample);
-    });*/
+     this.explosionSamples.push(sample);
+     });*/
     this.samples.getSample('explosion2').then(sample => {
       this.explosionSamples.push(sample);
     });
-  
+    
     this.samples.getSample('rocket1').then(sample => {
       this.rocketSamples.push(sample);
     });
@@ -126,8 +126,8 @@ export class Fireworks implements AfterViewInit, OnInit {
   }
   
   public run(): void {
-    let initialLaunchCount: number = 40, index:number;
-    let delay:number = 500;
+    let initialLaunchCount: number = 40, index: number;
+    let delay: number = 500;
     if (this.detectmob()) {
       initialLaunchCount = 20;
       delay = 1000;
@@ -146,14 +146,14 @@ export class Fireworks implements AfterViewInit, OnInit {
   }
   
   private detectmob() {
-    if( navigator.userAgent.match(/Android/i)
+    if (navigator.userAgent.match(/Android/i)
       || navigator.userAgent.match(/webOS/i)
       || navigator.userAgent.match(/iPhone/i)
       || navigator.userAgent.match(/iPad/i)
       || navigator.userAgent.match(/iPod/i)
       || navigator.userAgent.match(/BlackBerry/i)
       || navigator.userAgent.match(/Windows Phone/i)
-    ){
+    ) {
       return true;
     }
     else {
@@ -241,7 +241,7 @@ export class Fireworks implements AfterViewInit, OnInit {
    */
   
   private createFireworks(startX: number, startY: number, targetX: number, targetY: number) {
-    let index:number = rand(0, this.rocketSamples.length - 1);
+    let index: number = rand(0, this.rocketSamples.length - 1);
     let fInstance: FireworkI = {
       audioStop: this.audio.play(this.rocketSamples[index]),
       firework: new Firework(startX, startY, targetX, targetY)
@@ -250,10 +250,10 @@ export class Fireworks implements AfterViewInit, OnInit {
   }
   
   private createParticles(x: number, y: number, hue: number) {
-    let index:number = rand(0, this.explosionSamples.length - 1);
+    let index: number = rand(0, this.explosionSamples.length - 1);
     let countdown: number = this.particleCount;
     while (countdown--) {
-      let pInstance:ParticleI = {
+      let pInstance: ParticleI = {
         audioStop: this.audio.play(this.explosionSamples[index]),
         particle: new Particle(x, y, hue)
       };
@@ -286,11 +286,11 @@ export class Fireworks implements AfterViewInit, OnInit {
   
   @HostListener('mousemove.fireworks', ['$event'])
   onMouseMove(event: MouseEvent) {
-    let randLaunch:number = rand(0, 5);
+    let randLaunch: number = rand(0, 5);
     this.mx = event.pageX;
     this.my = event.pageY;
     this.currentHue = rand(this.hueMin, this.hueMax);
-    this.createFireworks(this.cw/2, this.ch, this.mx, this.my);
+    this.createFireworks(this.cw / 2, this.ch, this.mx, this.my);
   }
   
   @HostListener('mouseup', ['$event'])
