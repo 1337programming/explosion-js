@@ -2,6 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {NgModule} from '@angular/core';
 import {HttpModule} from '@angular/http';
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 
 // Modules
 import {HomeModule} from './modules/home/home.module';
@@ -24,7 +25,7 @@ import {routing} from './app.router';
     routing, HomeModule, DashboardModule
   ],
   declarations: [AppComponent, FooterComponent, NavbarComponent, LoadingIndicator],
-  providers: [],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule {
