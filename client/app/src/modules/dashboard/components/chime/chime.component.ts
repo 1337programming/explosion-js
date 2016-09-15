@@ -67,7 +67,19 @@ export class Chime implements OnInit, OnDestroy {
   }
   
   getColor() {
-    return `rgba(${this.chime.sentiment.red}, ${this.chime.sentiment.green}, ${this.chime.sentiment.blue}, ${this.chime.sentiment.alpha})`
+    let red: number = this.getRandomIntInclusive(0, 255);
+    let green: number = this.getRandomIntInclusive(0, 255);
+    let blue:number = this.getRandomIntInclusive(0, 255);
+    let alpha:number = Math.random();
+    return `rgba(${red}, ${green}, ${blue}, ${alpha})`
   }
+  
+  // Returns a random integer between min (included) and max (included)
+// Using Math.round() will give you a non-uniform distribution!
+  private getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
   
 }
