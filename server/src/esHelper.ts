@@ -18,6 +18,7 @@ export class EsHelper {
         this.esClient.create({
             index: indexName + '-' + label,
             type: 'answer',
+            question: label,
             body: esObject
         }, function (error, response) {
             if (error) {
