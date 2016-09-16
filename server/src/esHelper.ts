@@ -5,7 +5,7 @@ let elasticsearch = require('elasticsearch');
 export class EsHelper {
 
     private esClient: any = new elasticsearch.Client({
-        host: '54.191.228.241/es',
+        host: 'localhost:9200',
         log: 'error'
     });
 
