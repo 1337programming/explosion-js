@@ -4,7 +4,7 @@ var request = require('request');
 var config = require(path.resolve('env.json'));
 
 var options = {
-  url: config.API_ENDPOINT + '/nd/api/activate-buzzword',
+  url: config.API_ENDPOINT + '/api/activate-buzzword',
   method: 'GET',
   json: true
 };

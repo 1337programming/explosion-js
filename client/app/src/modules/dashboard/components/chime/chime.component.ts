@@ -49,37 +49,41 @@ export class Chime implements OnInit, OnDestroy {
   @Input() chime: {x: number, y: number, note: string, text: string, sentiment: any, topic: string};
   stopAudio: Function;
   
+  private red:number;
+  private green:number;
+  private blue:number;
+  private alpha:number;
+  
   constructor(private samples: Samples,
               private audio: Audio,
               @Inject('size') private size) {
+    
+    this.red = this.getRandomIntInclusive(0, 255);
+    this.green = this.getRandomIntInclusive(0, 255);
+    this.blue = this.getRandomIntInclusive(0, 255);
+    this.alpha = Math.random();
   }
   
-  ngOnInit() {
+  public ngOnInit() {
     this.samples.getSample(this.chime.note).then(sample => {
       this.stopAudio = this.audio.play(sample, (this.chime.x / this.size.width) * 2 - 1);
     });
   }
   
-  ngOnDestroy() {
+  public ngOnDestroy() {
     if (this.stopAudio) {
       this.stopAudio();
     }
   }
   
-  getColor() {
-    let red: number = this.getRandomIntInclusive(0, 255);
-    let green: number = this.getRandomIntInclusive(0, 255);
-    let blue:number = this.getRandomIntInclusive(0, 255);
-    let alpha:number = Math.random();
-    return `rgba(${red}, ${green}, ${blue}, ${alpha})`
+  public getColor() {
+    return `rgba(${this.red}, ${this.green}, ${this.blue}, ${this.alpha})`
   }
   
-  // Returns a random integer between min (included) and max (included)
-// Using Math.round() will give you a non-uniform distribution!
   private getRandomIntInclusive(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
   
 }
