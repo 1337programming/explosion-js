@@ -1,6 +1,7 @@
 import {Component, Inject, Input, OnInit, OnDestroy, trigger, transition, animate, style, group} from '@angular/core';
 import {Samples} from 'app/src/common/services/samples.service';
 import {Audio} from 'app/src/common/services/audio.service';
+import {ColorPresets} from './color-presets';
 
 let ChimeStyle = require('!!raw!sass!./views/chime.scss');
 @Component({
@@ -46,25 +47,31 @@ let ChimeStyle = require('!!raw!sass!./views/chime.scss');
 })
 
 export class Chime implements OnInit, OnDestroy {
-  @Input() chime: {x: number, y: number, note: string, text: string, sentiment: any, topic: string};
+  @Input() chime: {x: number, y: number, note: string, text: string, sentiment: any, topic: string, name?: string};
   stopAudio: Function;
   
-  private red:number;
-  private green:number;
-  private blue:number;
-  private alpha:number;
+  private red: number;
+  private green: number;
+  private blue: number;
+  private alpha: number;
   
   constructor(private samples: Samples,
               private audio: Audio,
               @Inject('size') private size) {
-    
-    this.red = this.getRandomIntInclusive(0, 255);
-    this.green = this.getRandomIntInclusive(0, 255);
-    this.blue = this.getRandomIntInclusive(0, 255);
-    this.alpha = Math.random();
   }
   
   public ngOnInit() {
+    if (ColorPresets[this.chime.name]) {
+      let color = ColorPresets[this.chime.name];
+      this.red = color.red;
+      this.green = color.green;
+      this.blue = color.blue;
+    } else {
+      this.red = this.getRandomIntInclusive(0, 255);
+      this.green = this.getRandomIntInclusive(0, 255);
+      this.blue = this.getRandomIntInclusive(0, 255);
+    }
+    this.alpha = Math.random();
     this.samples.getSample(this.chime.note).then(sample => {
       this.stopAudio = this.audio.play(sample, (this.chime.x / this.size.width) * 2 - 1);
     });

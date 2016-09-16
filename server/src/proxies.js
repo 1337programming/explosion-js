@@ -28,6 +28,7 @@ function DefineProxies(emitter, esHelper) {
             esHelper.createEsObject('survey', label, answer, req.headers);
             var body = {
                 text: answer,
+                name: name,
                 username: 'Patrick',
                 sentiment: 1
             };
