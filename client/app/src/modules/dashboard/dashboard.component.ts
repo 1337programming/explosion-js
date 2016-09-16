@@ -17,7 +17,7 @@ let template  = require('./views/dashboard.html');
   styles: [style]
 })
 export class DashboardComponent {
-  private  clicks = new Subject<{x: number, y: number, sentiment: any, text: string, topic: string}>();
+  private  clicks = new Subject<{x: number, y: number, sentiment: any, text: string, topic: string, name?: string}>();
   private noteSampler = this.random.sampler(this.notes);
   private chimes = this.clicks.map(({x, y, sentiment, text, topic}) => ({
     x,
@@ -64,6 +64,7 @@ export class DashboardComponent {
       x: this.getXCoordinate(),
       y: this.getYCoordinate(),
       sentiment: 0,
+      name: data.name,
       text: data.text,
       topic: data.username
     });

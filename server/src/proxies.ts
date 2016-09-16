@@ -31,10 +31,12 @@ export function DefineProxies(emitter, esHelper) {
       console.log(req.body);
       res.statusCode = 200;
       let answer = req.body.input;
+      let type = req.body.name;
       esHelper.createEsObject('survey', answer);
 
       let body: any = {
         text: answer,
+        name: name,
         username: 'Patrick',
         sentiment: 1
       };

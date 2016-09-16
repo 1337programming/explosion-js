@@ -16,14 +16,13 @@ import {routing} from './dashboard.router';
 // Services
 import {Audio} from 'app/src/common/services/audio.service';
 import {Samples} from 'app/src/common/services/samples.service';
-import {DashboardService} from './services/dashboard-service';
 
 @NgModule({
   imports: [
     CommonModule, ReactiveFormsModule, FormsModule, HttpModule, routing
   ],
   declarations: [DashboardComponent, Chime, ForAnyOrder],
-  providers: [Audio, Samples, DashboardService]
+  providers: [Audio, Samples]
 })
 export class DashboardModule {
 }
