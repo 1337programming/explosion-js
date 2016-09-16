@@ -36,7 +36,7 @@ export function DefineProxies(emitter, esHelper) {
 
       let body: any = {
         text: answer,
-        name: name,
+        name: label,
         username: 'Patrick',
         sentiment: 1
       };
