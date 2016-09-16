@@ -4,9 +4,8 @@ import {Injectable, Inject} from '@angular/core';
 export class Audio {
   
   public compressor: DynamicsCompressorNode;
-  private audioCtx: AudioContext = new AudioContext();
   
-  constructor() {
+  constructor(@Inject('audioContext') private audioCtx) {
     this.compressor = this.audioCtx.createDynamicsCompressor();
     this.compressor.threshold.value = -20;
     this.compressor.knee.value = 10;

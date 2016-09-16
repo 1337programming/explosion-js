@@ -12,16 +12,7 @@ import {Samples} from './common/services/samples.service';
             <router-outlet [hidden]="isLoading()"></router-outlet>
             <!--<loading-indicator *ngIf="isLoading()" [progress]="getLoadProgress()"></loading-indicator>-->
         </div>
-            `,
-  providers: [
-    Remote,
-    Random,
-    Samples,
-    Audio,
-    {provide: 'audioContext', useValue: new (window['AudioContext'] || window['webkitAudioContext']) },
-    {provide: 'size', useValue: {width: 1280, height: 780}},
-    {provide: 'notes', useValue: ['C4', 'G4', 'C5', 'D5', 'E5']}
-  ]
+            `
 })
 export class AppComponent {
   
