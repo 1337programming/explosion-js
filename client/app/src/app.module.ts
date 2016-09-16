@@ -17,6 +17,11 @@ import {AppComponent} from './app.component';
 // Routes
 import {routing} from './app.router';
 
+// Services
+import {Random} from './common/services/random.service';
+import {Samples} from './common/services/samples.service';
+import {Audio} from './common/services/audio.service';
+
 // Custom Components
 
 @NgModule({
@@ -25,7 +30,15 @@ import {routing} from './app.router';
     routing, HomeModule, DashboardModule
   ],
   declarations: [AppComponent, FooterComponent, NavbarComponent, LoadingIndicator],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    Random,
+    Samples,
+    Audio,
+    {provide: 'audioContext', useValue: new (window['AudioContext'] || window['webkitAudioContext']) },
+    {provide: 'size', useValue: {width: 1280, height: 780}},
+    {provide: 'notes', useValue: ['C4', 'G4', 'C5', 'D5', 'E5']}
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
