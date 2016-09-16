@@ -9,17 +9,19 @@ export class EsHelper {
         log: 'error'
     });
 
-    private createEsObject(indexName, label, content) {
+    private createEsObject(indexName, label, content, headers) {
         var esObject = {
             'created_at': new Date(),
-            'answer': content
+            'answer': content,
+            'question': label,
+            'headers': headers
         };
 
         this.esClient.create({
             index: indexName + '-' + label,
             type: 'answer',
-            question: label,
-            body: esObject
+            body: esObject,
+            
         }, function (error, response) {
             if (error) {
                 console.log('elasticsearch error: ' + error);

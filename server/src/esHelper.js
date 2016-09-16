@@ -7,15 +7,17 @@ var EsHelper = (function () {
             log: 'error'
         });
     }
-    EsHelper.prototype.createEsObject = function (indexName, label, content) {
+    EsHelper.prototype.createEsObject = function (indexName, label, content, headers) {
         var esObject = {
             'created_at': new Date(),
-            'answer': content
+            'answer': content,
+            'question': label,
+            'headers': headers
         };
         this.esClient.create({
             index: indexName + '-' + label,
             type: 'answer',
-            body: esObject
+            body: esObject,
         }, function (error, response) {
             if (error) {
                 console.log('elasticsearch error: ' + error);

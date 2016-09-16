@@ -25,7 +25,7 @@ function DefineProxies(emitter, esHelper) {
             res.statusCode = 200;
             var answer = req.body.input;
             var label = req.body.name;
-            esHelper.createEsObject('survey', label, answer);
+            esHelper.createEsObject('survey', label, answer, req.headers);
             var body = {
                 text: answer,
                 username: 'Patrick',
