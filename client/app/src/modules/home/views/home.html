@@ -11,7 +11,7 @@
                     <label>{{question.description}}</label>
                     <p class="iconicfill-pen-alt2"></p>
                 </div>
-                <input type="text" id="{{question.name}}" name="{{question.name}}" autocomplete="off" autocorrect="off" [(ngModel)]="question.input">
+                <input [disabled]="question.disabled" type="text" id="{{question.name}}" name="{{question.name}}" autocomplete="off" autocorrect="off" [(ngModel)]="question.input">
             </div>
         </form>
     </div>

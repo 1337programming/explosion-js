@@ -14,6 +14,7 @@ interface SurveyQuestions {
 interface Question {
   description: string;
   name: string;
+  disabled: boolean;
   input?: string;
 }
 
