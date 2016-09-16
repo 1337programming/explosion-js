@@ -4,7 +4,7 @@ var request = require('request');
 var config = require(path.resolve('env.json'));
 
 var options = {
-  url: config.API_ENDPOINT + '/ws/api/activate-explosion',
+  url: config.API_ENDPOINT + '/api/activate-explosion',
   method: 'GET',
   json: true
 };
