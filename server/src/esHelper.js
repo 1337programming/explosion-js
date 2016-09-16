@@ -3,17 +3,17 @@ var elasticsearch = require('elasticsearch');
 var EsHelper = (function () {
     function EsHelper() {
         this.esClient = new elasticsearch.Client({
-            host: '54.191.228.241/es',
+            host: 'localhost:9200',
             log: 'error'
         });
     }
-    EsHelper.prototype.createEsObject = function (indexName, content) {
+    EsHelper.prototype.createEsObject = function (indexName, label, content) {
         var esObject = {
             'created_at': new Date(),
             'answer': content
         };
         this.esClient.create({
-            index: indexName,
+            index: indexName + '-' + label,
             type: 'answer',
             body: esObject
         }, function (error, response) {

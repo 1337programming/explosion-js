@@ -9,14 +9,14 @@ export class EsHelper {
         log: 'error'
     });
 
-    private createEsObject(indexName, content) {
+    private createEsObject(indexName, label, content) {
         var esObject = {
             'created_at': new Date(),
             'answer': content
         };
 
         this.esClient.create({
-            index: indexName,
+            index: indexName + '-' + label,
             type: 'answer',
             body: esObject
         }, function (error, response) {

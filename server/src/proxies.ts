@@ -31,7 +31,8 @@ export function DefineProxies(emitter, esHelper) {
       console.log(req.body);
       res.statusCode = 200;
       let answer = req.body.input;
-      esHelper.createEsObject('survey', answer);
+      let label = req.body.name;
+      esHelper.createEsObject('survey', label, answer);
 
       let body: any = {
         text: answer,
