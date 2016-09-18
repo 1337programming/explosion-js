@@ -1,32 +1,32 @@
 "use strict";
 function DefineProxies(emitter, esHelper) {
-    let router = require('express').Router();
-    router.get('/', (req, res) => {
+    var router = require('express').Router();
+    router.get('/', function (req, res) {
         return res.status(200).send({ message: 'Test' });
     });
-    router.post('/topic', (req, res) => {
-        let topic = req.body.input;
+    router.post('/topic', function (req, res) {
+        var topic = req.body.input;
         console.log(topic);
         if (!topic) {
-            return res.status(400).send(`${new Date()} Missing topic field`);
+            return res.status(400).send(new Date() + " Missing topic field");
         }
         // DO SOMETHING...
-        let body = {
+        var body = {
             text: topic,
             username: 'Patrick',
             sentiment: 1
         };
         emitter.notifyTopic(body);
-        return res.status(200).send(`${new Date()} Topic sent`);
+        return res.status(200).send(new Date() + " Topic sent");
     });
-    router.post('/answer', (req, res) => {
+    router.post('/answer', function (req, res) {
         if (req.body) {
             console.log(req.body);
             res.statusCode = 200;
-            let answer = req.body.input;
-            let label = req.body.name;
+            var answer = req.body.input;
+            var label = req.body.name;
             esHelper.createEsObject('survey', label, answer, req.headers);
-            let body = {
+            var body = {
                 text: answer,
                 name: label,
                 username: 'Patrick',
@@ -46,23 +46,22 @@ function DefineProxies(emitter, esHelper) {
         // DO SOMETHING...
         // return res.status(200).send(`${new Date()} Topic sent`);
     });
-    router.post('/buzzword', (req, res) => {
-        let topic = req.body.input;
+    router.post('/buzzword', function (req, res) {
+        var topic = req.body.input;
         if (!topic) {
-            return res.status(400).send(`${new Date()} Missing buzzword field`);
+            return res.status(400).send(new Date() + " Missing buzzword field");
         }
         // DO SOMETHING...
-        return res.status(200).send(`${new Date()} Topic sent`);
+        return res.status(200).send(new Date() + " Topic sent");
     });
-    router.get('/activate-buzzword', (req, res) => {
+    router.get('/activate-buzzword', function (req, res) {
         emitter.notifyFormChange();
-        return res.status(200).send(`${new Date()} Updating Form`);
+        return res.status(200).send(new Date() + " Updating Form");
     });
-    router.get('/activate-explosion', (req, res) => {
+    router.get('/activate-explosion', function (req, res) {
         emitter.notifyExplosion();
-        return res.status(200).send(`${new Date()} Flagging Explosion`);
+        return res.status(200).send(new Date() + " Flagging Explosion");
     });
     return router;
 }
 exports.DefineProxies = DefineProxies;
-//# sourceMappingURL=proxies.js.map

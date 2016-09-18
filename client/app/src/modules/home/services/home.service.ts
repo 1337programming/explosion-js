@@ -23,27 +23,27 @@ export class HomeService {
     this.setEvents();
   }
   
-  public submitQuestion(input:string, name:string):Observable<Response> {
+  public submitQuestion(input:string, name:string):Observable<any> {
     console.log(input, name);
     let body = {
       input:input,
       name:name
     };
-    return this.http.post(`${Settings.API_ENDPOINT}/api/answer`, body, this.headers);
+    return this.http.post(`${Settings.API_ENDPOINT}/api/answer`, body, this.headers).map(res => res.json());
   }
   
-  public sendTopic(topic:string):Observable<Response> {
+  public sendTopic(topic:string):Observable<any> {
     let body = {
       input:topic
     };
-    return this.http.post(`${Settings.API_ENDPOINT}/api/topic`, body, this.headers);
+    return this.http.post(`${Settings.API_ENDPOINT}/api/topic`, body, this.headers).map(res => res.json());
   }
   
-  public sendBuzzword(buzzword:string):Observable<Response> {
+  public sendBuzzword(buzzword:string):Observable<any> {
     let body = {
       input: buzzword
     };
-    return this.http.post(`${Settings.API_ENDPOINT}/api/topic`, body, this.headers);
+    return this.http.post(`${Settings.API_ENDPOINT}/api/topic`, body, this.headers).map(res => res.json());
   }
   
   private setEvents() {

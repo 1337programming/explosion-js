@@ -61,9 +61,8 @@ io.on('connection', (socket) => {
 });
 
 http.listen(Config.SERVER_CONFIG.PORT, () => {
-  console.log('listening on *:3000');
+  console.log('listening on *:'+ Config.SERVER_CONFIG.PORT);
 });
 
 
 
-  

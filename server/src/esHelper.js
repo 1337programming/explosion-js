@@ -1,13 +1,13 @@
 "use strict";
-let elasticsearch = require('elasticsearch');
-class EsHelper {
-    constructor() {
+var elasticsearch = require('elasticsearch');
+var EsHelper = (function () {
+    function EsHelper() {
         this.esClient = new elasticsearch.Client({
             host: 'localhost:9200',
             log: 'error'
         });
     }
-    createEsObject(indexName, label, content, headers) {
+    EsHelper.prototype.createEsObject = function (indexName, label, content, headers) {
         var esObject = {
             'created_at': new Date(),
             'answer': content,
@@ -23,8 +23,8 @@ class EsHelper {
                 console.log('elasticsearch error: ' + error);
             }
         });
-    }
-    loadIntoEs(obj) {
+    };
+    EsHelper.prototype.loadIntoEs = function (obj) {
         this.esClient.create({
             index: 'twitter2',
             type: 'tweet',
@@ -34,7 +34,7 @@ class EsHelper {
                 console.log('elasticsearch error: ' + error);
             }
         });
-    }
-}
+    };
+    return EsHelper;
+}());
 exports.EsHelper = EsHelper;
-//# sourceMappingURL=esHelper.js.map

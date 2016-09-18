@@ -5,16 +5,16 @@ var allowCrossDomain = function (req, res, next) {
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
 };
-class Authentication {
-    constructor(port) {
+var Authentication = (function () {
+    function Authentication(port) {
         this.port = port;
     }
-    allowCrossDomain(req, res, next) {
-        res.header('Access-Control-Allow-Origin', `*`);
+    Authentication.prototype.allowCrossDomain = function (req, res, next) {
+        res.header('Access-Control-Allow-Origin', "*");
         res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
         res.header('Access-Control-Allow-Headers', 'Content-Type');
         next();
-    }
-}
+    };
+    return Authentication;
+}());
 exports.Authentication = Authentication;
-//# sourceMappingURL=authentication.js.map

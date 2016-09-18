@@ -108,11 +108,20 @@ input:disabled {
   cursor: not-allowed;
 }
 
-$pulse-color: #ff4f52;
-$pulse-color2: #ff727f;
+$pulse-color: rgba(255, 105, 117, 0.76);
+$pulse-color2: rgba(255, 69, 72, 0.76);
 @keyframes pulsey {
-  0% {background-color: $pulse-color}
-  50% {background-color: $pulse-color2}
-  100% {background-color: $pulse-color}
+  0% {
+    background-color: $pulse-color;
+    opacity: 0.25;
+  }
+  50% {
+    background-color: $pulse-color2;
+    opacity: 0.75;
+  }
+  100% {
+    background-color: $pulse-color;
+    opacity: 0.25;
+  }
 }
 
