@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "taworkshop-32e79",
+  "private_key_id": "26ac142847c2a5e6e5e2b6c6eff6fada3a838482",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDeAsMNqSg1XPDc\nmD2UXYlJfJO1rNtTEIV9XsZ0wd+Z65k3MqvmiXmvRar4YwWmFubTlTDSVHnLPoD+\nX6nEQeEtB+vGGjAhjQyjzOijFn7mYyx+BzXFTDmOjV1PH2nZCX0XeknXo0dGkI+T\nd9yCHIGZriPwNCeFgW/LvNuwqr0tp9aJFivCm1meKC+JTh6wpoQt5F0l0k++XRun\nOsA3WAH7pM1jiVp4CJz0x6QkrOd4sSxYwYNLKWxfjbkUr05C5wUuImlGNKh4AJOf\nzPE09o1mBWxjvb724pPCua8Ki3JO0s8hWgWpC96a4WqoJndKDAwI8bcjXbTmpP2i\nEdpDyOjrAgMBAAECggEBALtrnXrE2PrjsTqpEyNTK3jsQE5Y1Pb0tZy3C9a5bKim\nKjxc/J2sZRvANqtl/PjP0KHCCuslAYTBCWi1Hb5e11eKnlIo/YT1bDxD2gkEDrEz\n+/WQ5KXgyZ48XQ9Ut6jPx9iwFfKDFsLNe0fFIlR8+DPivNglT0/3i4d1sgkcuoP0\n4DS5o5GGn3MLXUk3WEn4/3j3CElixFjuu8rGBFIHvUpo2F6DJo8HK23Y1ZIZRg7n\nq5jHCkUhWo9z53LYjoM09bzfvI35i+DXLaYXx3Ke4tr2P5At5lMfXqKe9YZiOZc+\nKutfR2P4AcjaaZ2MhmL0CBEGnIDEAMo5b0nufh1MgSECgYEA7wV8R3uW1ZqImz/r\nKb3ZW7KtFejUIJa5DH8UOsA7rGUrLFUqkfMGoi5K7rKFOsg5Emfafz4VxuDJDoh4\nZeu9w/xYkevnLvJOOd48oHN2zaolaBRfWFPJl7UvKo5iGdW3JsOukIVvxK7O+i6F\nmCzjtdMpA1Dq+YD0Q0s87kqApDkCgYEA7cfxxMLnOxLjmwohg111tUjjmH0Qeybs\nW/XFctYWLvNeWBIoTtD1Yei8YXDdXx6WKoEIwt0KK+skeJ4ctjh5/le2+XcXlCUY\nltQE8uEG04Uorb5wy8f8hQi/z9+BxRxtjpOTJKYy+Wh1E/9oMunXQ9Eo1m+QdWzE\nz9SZC/BZXkMCgYADX6NyatclKqo07sEF9M0Fk08IGSItV5NDDuQdNCtjcoYaeRVB\nvBli3p5mIhTpUHwlu1uFIj4ycWfFEb4JSjuCcaRaYub/baIXBQD8DsUlf/pJLsht\nubkFsCP7SMkvrimInYhwN8HtF76KH2/5RuDr5xAUIOdAIEbSUFSK1HheWQKBgFLQ\nRULbAr+PR5gSwjNHVJyLw0Czpg7OMpmgkmD5cQZvGlegE0vH+P5dmWZycZcURwaM\npCmB5G4BWlVr8+H+73YGxKJDuQGOne7B7utMNh1rDgzc+9ntT+RhdLSISmEFEp8K\nhL/J5oz4tXX+iSLaUG+9I/TzLCPJew5LI/aFggqTAoGARrFpnD6kiMqP/hT6ndyY\nC2ylnN/C0J9NC8GSGQwh1fR6FQn7RdItXJEgCBvKJyelz24ANk/dCwlkur3pIXfr\nMB8YElRMH5wQYfOICLr8l7PYbQLBWxH0urFNgKkAmA0/CVDDrVoJvy/kOqIXL3N9\nTvzPw5NWFtwdYmlfdhJCNbo=\n-----END PRIVATE KEY-----\n",
+  "client_email": "nodeapi@taworkshop-32e79.iam.gserviceaccount.com",
+  "client_id": "118171647011087169969",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/nodeapi%40taworkshop-32e79.iam.gserviceaccount.com"
+}

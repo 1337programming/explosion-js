@@ -32,12 +32,13 @@ export function DefineProxies(emitter, esHelper) {
       res.statusCode = 200;
       let answer = req.body.input;
       let label = req.body.name;
+      let user = req.body.user;
       esHelper.createEsObject('survey', label, answer, req.headers);
 
       let body: any = {
         text: answer,
         name: label,
-        username: 'Patrick',
+        username: user,
         sentiment: 1
       };
       emitter.notifyTopic(body);
