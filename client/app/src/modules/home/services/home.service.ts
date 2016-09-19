@@ -27,7 +27,8 @@ export class HomeService {
     console.log(input, name);
     let body = {
       input:input,
-      name:name
+      name:name,
+      user:"accenture.eid"
     };
     return this.http.post(`${Settings.API_ENDPOINT}/api/answer`, body, this.headers).map(res => res.json());
   }
