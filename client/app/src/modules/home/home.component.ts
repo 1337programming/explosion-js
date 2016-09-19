@@ -5,7 +5,7 @@ import {HomeService} from "./services/home.service";
 import {Fireworks} from './components/fireworks/fireworks.component';
 import {FIREBASE} from '../../core/settings/settings';
 import {Question} from './interfaces/home.interface';
-import {randomSuccessMessage} from './helper/success-messages';
+import {randomSuccessMessage, randomWarningEmptyMessage, randomWarningLoadingMessage} from './helper/messages';
 
 let template = require('./views/home.html');
 let style = require('!!raw!sass!./views/home.scss');
@@ -61,12 +61,22 @@ export class HomeComponent implements OnInit {
   }
   
   private submitQuestion(input, name) {
-    this.homeService.submitQuestion(input, name).subscribe((res) => {
-      console.log(res);
-      this.clearInput(name);
-    }, (err) => {
-      this.showError(err);
-    });
+    if (!input) {
+      this.showError(randomWarningEmptyMessage());
+    } else if (this.loading) {
+      this.showError(randomWarningLoadingMessage());
+    } else {
+      this.loading = true;
+      this.homeService.submitQuestion(input, name).subscribe((res) => {
+        console.log(res);
+        this.clearInput(name);
+        this.showSuccess();
+        this.loading = false;
+      }, (err) => {
+        this.showError(err);
+        this.loading = false;
+      });
+    }
   }
   
   private submitAll() {
@@ -129,4 +139,5 @@ export class HomeComponent implements OnInit {
       this.showNotification = false;
     }, 8000);
   }
+  
 }
