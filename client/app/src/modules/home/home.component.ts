@@ -5,14 +5,13 @@ import {HomeService} from "./services/home.service";
 import {Fireworks} from './components/fireworks/fireworks.component';
 import {FIREBASE} from '../../core/settings/settings';
 import {Question} from './interfaces/home.interface';
+import {randomSuccessMessage} from './helper/success-messages';
 
 let template = require('./views/home.html');
 let style = require('!!raw!sass!./views/home.scss');
 let notification = require('!!raw!sass!./views/notification.scss');
 let fade = require('!!raw!sass!./views/fade-in-out.scss');
 let submit = require('!!raw!sass!./views/submit.scss');
-
-
 
 @Component({
   selector: 'home',
@@ -33,13 +32,13 @@ export class HomeComponent implements OnInit {
   private expload: boolean;
   private questions:Array<Question>;
   private loading:boolean;
-  private count:number;
+  private count:string;
   
   constructor(private homeService: HomeService) {
     this.loading = false;
     this.topic = '';
     this.buzzword = '';
-    this.count = 10;
+    this.count = '10';
     this.showBuzzword = false;
     this.expload = false;
     let questionRef = FIREBASE.database().ref('survey-questions');
@@ -78,15 +77,22 @@ export class HomeComponent implements OnInit {
         observables.push(this.homeService.submitQuestion(this.questions[i].input, this.questions[i].name));
       }
     }
-    Observable.forkJoin(observables).subscribe((data:Array<Response>) => {
-      console.log(data);
-      for (let i:number = 0; i < this.questions.length; i++) {
-        this.questions[i].input = '';
-      }
+    if (observables.length > 0) {
+      Observable.forkJoin(observables).subscribe((data:Array<Response>) => {
+        console.log(data);
+        for (let i:number = 0; i < this.questions.length; i++) {
+          this.questions[i].input = '';
+        }
+        this.loading = false;
+        this.showSuccess();
+      }, err => {
+        this.loading = false;
+        this.showError(err);
+      });
+    } else {
+      this.showError('Nothing to submit');
       this.loading = false;
-    }, err => {
-      this.showError(err);
-    });
+    }
   }
   
   private clearInput(name) {
@@ -107,9 +113,13 @@ export class HomeComponent implements OnInit {
     this.notify();
   }
   
-  private showSuccess(msg:string):void {
+  private showSuccess(msg?:string):void {
     this.success = true;
-    this.message = msg;
+    if (msg) {
+      this.message = msg;
+    } else {
+      this.message = randomSuccessMessage();
+    }
     this.notify();
   }
   

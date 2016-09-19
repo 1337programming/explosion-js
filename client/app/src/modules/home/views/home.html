@@ -1,10 +1,7 @@
 <div>
-    <!--
-    <div (click)="closeNotification()" class="notifications elementToFadeInAndOut" [hidden]="!showNotification">
-    -->
-    <div (click)="closeNotification()">
-        <div class="notify" [style.content]="count" [class.notification-error]="!success" [class.notification-success]="success">
-            {{message}}
+    <!--<div (click)="closeNotification()" class="notifications elementToFadeInAndOut" [hidden]="!showNotification">-->
+    <div (click)="closeNotification()" class="notifications">
+        <div class="notify" [class.notification-error]="!success" [class.notification-success]="success" [innerHTML]="message">
         </div>
     </div>
     <div class="wrap center"> <!-- Just to center ver and hor -->

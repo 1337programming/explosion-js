@@ -1,5 +1,5 @@
 import {Injectable, EventEmitter} from '@angular/core';
-import {Http, Headers, Response} from "@angular/http";
+import {Http, Headers, Response} from '@angular/http';
 import {Observable} from 'rxjs/observable';
 import * as io from 'socket.io-client';
 import {Settings, FIREBASE} from 'app/src/core/settings/settings';
@@ -28,7 +28,7 @@ export class HomeService {
     let body = {
       input:input,
       name:name,
-      user:"accenture.eid"
+      user:'accenture.eid'
     };
     return this.http.post(`${Settings.API_ENDPOINT}/api/answer`, body, this.headers);
   }
