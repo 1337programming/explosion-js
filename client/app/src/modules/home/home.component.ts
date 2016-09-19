@@ -26,17 +26,20 @@ export class HomeComponent implements OnInit {
   
   private topic: string;
   private buzzword: string;
-  private errorMessage: string;
+  private message: string;
   private showNotification: boolean;
+  private success:boolean;
   private showBuzzword: boolean;
   private expload: boolean;
   private questions:Array<Question>;
   private loading:boolean;
+  private count:number;
   
   constructor(private homeService: HomeService) {
     this.loading = false;
     this.topic = '';
     this.buzzword = '';
+    this.count = 10;
     this.showBuzzword = false;
     this.expload = false;
     let questionRef = FIREBASE.database().ref('survey-questions');
@@ -48,11 +51,7 @@ export class HomeComponent implements OnInit {
   }
   
   public ngOnInit() {
-    this.showNotification = true;
-    this.errorMessage = 'Connected';
-    setTimeout(() => {
-      this.showNotification = false;
-    }, 6000);
+    this.showSuccess('Connected');
     this.homeService.buzzwordAdded.subscribe((res) => {
       this.showBuzzword = true;
     });
@@ -67,8 +66,26 @@ export class HomeComponent implements OnInit {
       console.log(res);
       this.clearInput(name);
     }, (err) => {
-      this.showNotification = true;
-      this.errorMessage = err;
+      this.showError(err);
+    });
+  }
+  
+  private submitAll() {
+    this.loading = true;
+    let observables = [];
+    for (let i:number = 0; i < this.questions.length; i++) {
+      if (this.questions[i].input) {
+        observables.push(this.homeService.submitQuestion(this.questions[i].input, this.questions[i].name));
+      }
+    }
+    Observable.forkJoin(observables).subscribe((data:Array<Response>) => {
+      console.log(data);
+      for (let i:number = 0; i < this.questions.length; i++) {
+        this.questions[i].input = '';
+      }
+      this.loading = false;
+    }, err => {
+      this.showError(err);
     });
   }
   
@@ -80,39 +97,26 @@ export class HomeComponent implements OnInit {
     }
   }
   
-  private submitTopic(topic) {
-    this.homeService.sendTopic(topic).subscribe((res) => {
-      console.log(res);
-      this.topic = '';
-    }, (err:string) => {
-      this.showNotification = true;
-      this.errorMessage = err;
-    });
+  private closeNotification() {
+    this.showNotification = false;
   }
   
-  private submitBuzzword(buzzword) {
-    console.log(buzzword);
-    this.buzzword = '';
+  private showError(msg:string):void {
+    this.success = false;
+    this.message = msg;
+    this.notify();
   }
   
-  private submitAll() {
-    this.loading = true;
-    let observables = [];
-    for (let i:number = 0; i < this.questions.length; i++) {
-      if (this.questions[i].input) {
-        observables.push(this.homeService.submitQuestion(this.questions[i].input, this.questions[i].name));
-      }
-    }
-    Observable.forkJoin(observables).subscribe((data:Array<any>) => {
-      console.log(data);
-      for (let i:number = 0; i < this.questions.length; i++) {
-        this.questions[i].input = '';
-      }
-      this.loading = false;
-    }, err => {
-      this.errorMessage = err;
-      this.showNotification = true;
-    });
-    
+  private showSuccess(msg:string):void {
+    this.success = true;
+    this.message = msg;
+    this.notify();
+  }
+  
+  private notify():void {
+    this.showNotification = true;
+    setTimeout(() => {
+      this.showNotification = false;
+    }, 8000);
   }
 }

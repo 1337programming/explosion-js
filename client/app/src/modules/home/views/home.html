@@ -1,7 +1,10 @@
 <div>
-    <div *ngIf="showNotification" class="notifications elementToFadeInAndOut">
-        <div class="notification notify">
-            {{errorMessage}}
+    <!--
+    <div (click)="closeNotification()" class="notifications elementToFadeInAndOut" [hidden]="!showNotification">
+    -->
+    <div (click)="closeNotification()">
+        <div class="notify" [style.content]="count" [class.notification-error]="!success" [class.notification-success]="success">
+            {{message}}
         </div>
     </div>
     <div class="wrap center"> <!-- Just to center ver and hor -->
@@ -14,7 +17,7 @@
                 <input [disabled]="question.disabled" type="text" id="{{question.name}}" name="{{question.name}}" autocomplete="off" autocorrect="off" [(ngModel)]="question.input">
             </div>
         </form>
-        <button class="myButton" [class.loading]="loading" data-label="Submit" [disabled]="loading" (click)="submitAll()">Submit</button>
+        <button class="myButton" [class.loading]="loading" data-label="Submit All" [disabled]="loading" (click)="submitAll()">Submit All</button>
     </div>
 </div>
 <fireworks [hidden]="!expload"></fireworks>
