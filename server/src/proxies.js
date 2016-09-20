@@ -59,6 +59,10 @@ function DefineProxies(emitter, esHelper, firebaseWriter) {
         firebaseWriter.restoreDefaultQuestions();
         res.send("Questions Restored.");
     });
+    router.get('/start-fireworks', function (req, res) {
+        firebaseWriter.triggerFireworks();
+        res.send("Fireworks started");
+    });
     router.post('/buzzword', function (req, res) {
         var topic = req.body.input;
         if (!topic) {

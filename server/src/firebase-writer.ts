@@ -40,7 +40,7 @@ export class FirebaseWriter {
 
     private restoreDefaultQuestions() {
         this.surveyQuestions = {
-            "fireworks": "false",
+            "fireworks": false,
             "questions": [
                 {
                     "name": "question0",
@@ -51,6 +51,13 @@ export class FirebaseWriter {
         this.questionRef.set(this.surveyQuestions);
         console.log("questions restored.");
 
+    }
+
+    private triggerFireworks() {
+        let fireworksRef = firebase.database().ref('survey-questions/fireworks');
+        fireworksRef.set(true);
+        // fireworksRef.set(false);
+        setTimeout(function() { fireworksRef.set(false); }, 2000);
     }
 }
 

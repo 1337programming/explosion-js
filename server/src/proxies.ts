@@ -71,6 +71,11 @@ export function DefineProxies(emitter, esHelper, firebaseWriter) {
       res.send("Questions Restored.");
   });
 
+  router.get('/start-fireworks', (req, res) => {
+      firebaseWriter.triggerFireworks();
+      res.send("Fireworks started");
+  });
+
   
 
   router.post('/buzzword', (req, res) => {
