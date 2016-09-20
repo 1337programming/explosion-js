@@ -45,7 +45,6 @@ export class Audio {
         console.log('Audio is not supported');
       }
     }
-    
   }
   
   public pinkNoiseNode(): ScriptProcessorNode {

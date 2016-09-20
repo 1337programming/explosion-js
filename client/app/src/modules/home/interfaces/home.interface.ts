@@ -7,3 +7,8 @@ export interface Question {
   disabled: boolean;
   input?: string;
 }
+
+export interface EID {
+  emailId:string;
+  enterpriseId:string
+}

@@ -1,10 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Response} from "@angular/http";
+import {Response} from '@angular/http';
 import {Observable} from 'rxjs';
-import {HomeService} from "./services/home.service";
+import {HomeService} from './services/home.service';
 import {Fireworks} from './components/fireworks/fireworks.component';
 import {FIREBASE} from '../../core/settings/settings';
-import {Question} from './interfaces/home.interface';
+import {Question, EID} from './interfaces/home.interface';
 import {randomSuccessMessage, randomWarningEmptyMessage, randomWarningLoadingMessage} from './helper/messages';
 
 let template = require('./views/home.html');
@@ -51,12 +51,24 @@ export class HomeComponent implements OnInit {
   
   public ngOnInit() {
     this.showSuccess('Connected');
+    this.loading = true;
     this.homeService.buzzwordAdded.subscribe((res) => {
       this.showBuzzword = true;
+    }, (err) => {
+      this.showError(err);
     });
     this.homeService.detonate.subscribe((res) => {
       this.expload = true;
       this.fireworks.run();
+    }, (err) => {
+      this.showError(err);
+    });
+    this.homeService.getUserInfo().subscribe((res:EID) => {
+      this.loading = false;
+      console.log('USER ID', res);
+      this.homeService.setName(res.enterpriseId)
+    }, (err) => {
+      this.showError(err);
     });
   }
   
