@@ -1,5 +1,5 @@
 "use strict";
-function DefineProxies(emitter, esHelper) {
+function DefineProxies(emitter, esHelper, firebaseWriter) {
     var router = require('express').Router();
     router.get('/', function (req, res) {
         return res.status(200).send({ message: 'Test' });
@@ -40,12 +40,20 @@ function DefineProxies(emitter, esHelper) {
             res.statusCode = 500;
             res.send("Error. No Request data?");
         }
-        // let topic = req.body.input;
-        // if (!topic) {
-        //   return res.status(400).send(`${new Date()} Missing buzzword field`);
-        // }
-        // DO SOMETHING...
-        // return res.status(200).send(`${new Date()} Topic sent`);
+    });
+    router.post('/add-question', function (req, res) {
+        if (req.body) {
+            console.log(req.body);
+            res.statusCode = 200;
+            var question = req.body.question;
+            var name_1 = req.body.name;
+            firebaseWriter.addNewQuestions(question, name_1);
+            res.send("OK");
+        }
+        else {
+            res.statusCode = 500;
+            res.send("Error. No Request data?");
+        }
     });
     router.post('/buzzword', function (req, res) {
         var topic = req.body.input;

@@ -1,6 +1,6 @@
 declare let require: any;
 
-export function DefineProxies(emitter, esHelper) {
+export function DefineProxies(emitter, esHelper, firebaseWriter) {
   let router = require('express').Router();
 
   router.get('/', (req, res) => {
@@ -48,14 +48,22 @@ export function DefineProxies(emitter, esHelper) {
       res.statusCode = 500;
       res.send("Error. No Request data?");
     }
-    // let topic = req.body.input;
-    // if (!topic) {
-    //   return res.status(400).send(`${new Date()} Missing buzzword field`);
-    // }
+  });
 
-    // DO SOMETHING...
+  router.post('/add-question', (req, res) => {
+    if (req.body) {
+      console.log(req.body);
+      res.statusCode = 200;
+      let question = req.body.question;
+      let name = req.body.name;
+      
+      firebaseWriter.addNewQuestions(question, name);
 
-    // return res.status(200).send(`${new Date()} Topic sent`);
+      res.send("OK");
+    } else {
+      res.statusCode = 500;
+      res.send("Error. No Request data?");
+    }
   });
 
   router.post('/buzzword', (req, res) => {

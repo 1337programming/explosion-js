@@ -4,6 +4,7 @@ import {Authentication} from './src/authentication';
 import {DefineProxies} from './src/proxies';
 import {StreamEmitter} from './src/stream-emitter';
 import {EsHelper} from './src/esHelper';
+import {FirebaseWriter} from './src/firebase-writer';
 
 let express = require('express');
 let app = express();
@@ -18,8 +19,9 @@ let Config = require(path.resolve('../env.json'));
 // Emitter used and shared across the server
 let streamEmitter = new StreamEmitter();
 let esHelper = new EsHelper();
+let firebaseWriter = new FirebaseWriter();
 
-let Router = DefineProxies(streamEmitter,esHelper);
+let Router = DefineProxies(streamEmitter,esHelper, firebaseWriter);
 let AuthInstance = new Authentication(Config.SERVER_CONFIG.PORT);
 app.use(bodyParser.json());
 app.use(AuthInstance.allowCrossDomain);
