@@ -52,8 +52,11 @@ export class HomeComponent implements OnInit {
     let questionRef = FIREBASE.database().ref('survey-questions');
     console.log('reference', questionRef);
     questionRef.on('value', (data) => {
-      let surveyQuestions = data.val();
-      this.questions = surveyQuestions.questions;
+      let info = data.val();
+      if (info.fireworks === true) {
+        this.fireworks.run();
+      }
+      this.questions = info.questions;
     });
   }
   
