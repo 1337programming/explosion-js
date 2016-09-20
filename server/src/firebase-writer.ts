@@ -28,7 +28,7 @@ export class FirebaseWriter {
 
     private addNewQuestions(question: string, name: string) {
         if (!name) {
-            let questionLength = this.surveyQuestions.questions.length + 1;
+            let questionLength = this.surveyQuestions.questions.length;
             name = "question" + questionLength;
         }
         let newQuestion = { "description": question, "name": name };
