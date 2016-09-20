@@ -40,6 +40,7 @@ export class FirebaseWriter {
 
     private restoreDefaultQuestions() {
         this.surveyQuestions = {
+            "fireworks": "false",
             "questions": [
                 {
                     "name": "question0",
