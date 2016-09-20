@@ -24,39 +24,27 @@ import {Audio} from './common/services/audio.service';
 
 
 // AudioContext Mock
-interface AudioMockContextI {
-  createDynamicsCompressor: Function;
-  destination: string;
-  createBufferSource: Function;
-  createStereoPanner: Function;
-  createScriptProcessor: Function;
-  createGain: Function;
-}
+
 // Custom Components
-let AudioContextMock: AudioMockContextI = {
-  createDynamicsCompressor: function () {
-    return null;
-  },
-  destination: null,
-  createBufferSource: function () {
-    return null;
-  },
-  createStereoPanner: function () {
-    return null;
-  },
-  createScriptProcessor: function () {
-    return null;
-  },
-  createGain: function () {
-    return null;
-  },
+function AudioContextMock() {
+  this.destination = null;
 };
-let AudioContext: AudioMockContextI = AudioContextMock;
-if (window['AudioContext']) {
-  AudioContext = window['AudioContext'];
-} else if (window['webkitAudioContext']) {
-  AudioContext = window['webkitAudioContext'];
-}
+
+AudioContextMock.prototype.createDynamicsCompressor = function () {
+  return null;
+};
+AudioContextMock.prototype.createBufferSource = function () {
+  return null;
+};
+AudioContextMock.prototype.createStereoPanner = function () {
+  return null;
+};
+AudioContextMock.prototype.createScriptProcessor = function () {
+  return null;
+};
+AudioContextMock.prototype.createGain = function () {
+  return null;
+};
 
 @NgModule({
   imports: [
@@ -69,7 +57,7 @@ if (window['AudioContext']) {
     Random,
     Samples,
     Audio,
-    {provide: 'audioContext', useValue: AudioContext},
+    {provide: 'audioContext', useValue: new (window['AudioContext'] || window['webkitAudioContext'] || AudioContextMock)},
     {provide: 'size', useValue: {width: 1280, height: 780}},
     {provide: 'notes', useValue: ['C4', 'G4', 'C5', 'D5', 'E5']}
   ],
