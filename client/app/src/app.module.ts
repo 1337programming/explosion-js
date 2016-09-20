@@ -22,7 +22,41 @@ import {Random} from './common/services/random.service';
 import {Samples} from './common/services/samples.service';
 import {Audio} from './common/services/audio.service';
 
+
+// AudioContext Mock
+interface AudioMockContextI {
+  createDynamicsCompressor: Function;
+  destination: string;
+  createBufferSource: Function;
+  createStereoPanner: Function;
+  createScriptProcessor: Function;
+  createGain: Function;
+}
 // Custom Components
+let AudioContextMock: AudioMockContextI = {
+  createDynamicsCompressor: function () {
+    return null;
+  },
+  destination: null,
+  createBufferSource: function () {
+    return null;
+  },
+  createStereoPanner: function () {
+    return null;
+  },
+  createScriptProcessor: function () {
+    return null;
+  },
+  createGain: function () {
+    return null;
+  },
+};
+let AudioContext: AudioMockContextI = AudioContextMock;
+if (window['AudioContext']) {
+  AudioContext = window['AudioContext'];
+} else if (window['webkitAudioContext']) {
+  AudioContext = window['webkitAudioContext'];
+}
 
 @NgModule({
   imports: [
@@ -35,10 +69,10 @@ import {Audio} from './common/services/audio.service';
     Random,
     Samples,
     Audio,
-    {provide: 'audioContext', useValue: new (window['AudioContext'] || window['webkitAudioContext']) },
+    {provide: 'audioContext', useValue: AudioContext},
     {provide: 'size', useValue: {width: 1280, height: 780}},
     {provide: 'notes', useValue: ['C4', 'G4', 'C5', 'D5', 'E5']}
-    ],
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
