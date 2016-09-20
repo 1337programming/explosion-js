@@ -3,7 +3,6 @@ import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {AppModule} from './app.module';
 import {Settings} from './core/settings/settings';
 
-declare let WEBPACK_PROD: string;
 declare let module: any;
 
 if (Settings.PROD) {
@@ -14,5 +13,6 @@ if (Settings.PROD) {
   }
 }
 
-
 platformBrowserDynamic().bootstrapModule(AppModule);
+
+

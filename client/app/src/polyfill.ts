@@ -17,6 +17,7 @@ import 'core-js/es6/typed';
 import 'core-js/es6/reflect';
 import 'core-js/es7/reflect';
 import 'zone.js/dist/zone';
+import 'core-js/es5/index';
 import 'ts-helpers';
 
 import 'web-animations-js';
