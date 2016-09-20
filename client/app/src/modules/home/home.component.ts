@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Response} from '@angular/http';
+import {DomSanitizer, SafeUrl, SafeStyle} from '@angular/platform-browser';
 import {Observable} from 'rxjs';
 import {HomeService} from './services/home.service';
 import {Fireworks} from './components/fireworks/fireworks.component';
@@ -34,13 +35,20 @@ export class HomeComponent implements OnInit {
   private loading:boolean;
   private count:string;
   
-  constructor(private homeService: HomeService) {
+  private welovefontSafe:SafeStyle;
+  private googleFontSafe1:SafeStyle;
+  private googleFontSafe2:SafeStyle;
+  
+  constructor(private homeService: HomeService, private sanitizer:DomSanitizer) {
     this.loading = false;
     this.topic = '';
     this.buzzword = '';
     this.count = '10';
     this.showBuzzword = false;
     this.expload = false;
+    this.welovefontSafe = sanitizer.bypassSecurityTrustStyle('http://weloveiconfonts.com/api/?family=iconicfill');
+    this.googleFontSafe1 = sanitizer.bypassSecurityTrustStyle('http://fonts.googleapis.com/css?family=Arvo');
+    this.googleFontSafe2 = sanitizer.bypassSecurityTrustStyle('http://fonts.googleapis.com/css?family=Lato:300|Oswald');
     let questionRef = FIREBASE.database().ref('survey-questions');
     console.log('reference', questionRef);
     questionRef.on('value', (data) => {
