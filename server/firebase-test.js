@@ -13,3 +13,13 @@ questionRef.on('value', function(data) {
       var surveyQuestions = data.val();
       console.log(surveyQuestions);
 });
+
+var newNodeRef = firebase.database().ref('test');
+newNodeRef.set({ "first": "Jack", "last": "Sparrow" }, function(data){
+    console.log('update complete');
+});
+
+firebase.database().ref('survey-questions/questions/1/description').set(
+    'What buzzwords do you hear that are just plain overused?', function(data){
+    console.log('update complete');
+    });
