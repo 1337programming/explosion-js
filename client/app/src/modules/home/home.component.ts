@@ -68,6 +68,7 @@ export class HomeComponent implements OnInit {
       console.log('USER ID', res);
       this.homeService.setName(res.enterpriseId)
     }, (err) => {
+      this.loading = false;
       this.showError(err);
     });
   }

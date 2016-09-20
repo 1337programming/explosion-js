@@ -38,7 +38,7 @@ export class HomeService {
   }
   
   public getUserInfo(): Observable<EID> {
-    return this.http.get('http://whereshouldiski.com/eid-api/').map((res: Response) => res.json());
+    return this.http.get('https://taworkshop.accenture.com/eid-api').map((res: Response) => res.json());
   }
   
   public setName(id: string): void {
