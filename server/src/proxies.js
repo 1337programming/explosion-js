@@ -55,6 +55,10 @@ function DefineProxies(emitter, esHelper, firebaseWriter) {
             res.send("Error. No Request data?");
         }
     });
+    router.get('/restore-questions', function (req, res) {
+        firebaseWriter.restoreDefaultQuestions();
+        res.send("Questions Restored.");
+    });
     router.post('/buzzword', function (req, res) {
         var topic = req.body.input;
         if (!topic) {

@@ -20,13 +20,25 @@ var FirebaseWriter = (function () {
     }
     FirebaseWriter.prototype.addNewQuestions = function (question, name) {
         if (!name) {
-            var questionLength = this.surveyQuestions.questions.length;
+            var questionLength = this.surveyQuestions.questions.length + 1;
             name = "question" + questionLength;
         }
         var newQuestion = { "description": question, "name": name };
         this.surveyQuestions.questions.push(newQuestion);
         this.questionRef.set(this.surveyQuestions);
         console.log("question added: ", question);
+    };
+    FirebaseWriter.prototype.restoreDefaultQuestions = function () {
+        this.surveyQuestions = {
+            "questions": [
+                {
+                    "name": "question0",
+                    "description": "What technology are you excited to learn about at the workshops?"
+                }
+            ]
+        };
+        this.questionRef.set(this.surveyQuestions);
+        console.log("questions restored.");
     };
     return FirebaseWriter;
 }());

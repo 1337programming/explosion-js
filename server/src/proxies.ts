@@ -66,6 +66,13 @@ export function DefineProxies(emitter, esHelper, firebaseWriter) {
     }
   });
 
+  router.get('/restore-questions', (req, res) => {
+      firebaseWriter.restoreDefaultQuestions();
+      res.send("Questions Restored.");
+  });
+
+  
+
   router.post('/buzzword', (req, res) => {
     let topic = req.body.input;
     if (!topic) {
