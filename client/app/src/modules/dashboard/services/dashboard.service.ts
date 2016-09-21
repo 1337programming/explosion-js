@@ -17,6 +17,7 @@ export class DashboardService {
   
   public openSocket() {
     this.socket = io.connect(`${Settings.API_ENDPOINT}`);
+    this.socket.io.reconnectionAttempts(5);
     this.setEvents();
   }
   
