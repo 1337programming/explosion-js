@@ -52,14 +52,34 @@ export function DefineProxies(emitter, esHelper, firebaseWriter) {
 
   router.post('/add-question', (req, res) => {
     if (req.body) {
-      console.log(req.body);
+      console.log(JSON.stringify(req.body))
       res.statusCode = 200;
       let question = req.body.question;
+
+      if (req.body.request && req.body.request.intent) {
+        question = req.body.request.intent.slots.actions.value;
+
+        //String manipulation cleanup
+        question = question.charAt(0).toUpperCase() + question.slice(1) + '?';
+        console.log("question parsed from alexa", question);
+      }
+
       let name = req.body.name;
-      
+
       firebaseWriter.addNewQuestions(question, name);
 
-      res.send("OK");
+      let alexaResponse = {
+        version: "1.00",
+        response: {
+          outputSpeech: {
+            type: "PlainText",
+            text: "Hey group, " + question + "?"
+          }
+        },
+        sessionAttributes: {}
+      }
+
+      res.send(JSON.stringify(alexaResponse));
     } else {
       res.statusCode = 500;
       res.send("Error. No Request data?");
@@ -67,16 +87,16 @@ export function DefineProxies(emitter, esHelper, firebaseWriter) {
   });
 
   router.get('/restore-questions', (req, res) => {
-      firebaseWriter.restoreDefaultQuestions();
-      res.send("Questions Restored.");
+    firebaseWriter.restoreDefaultQuestions();
+    res.send("Questions Restored.");
   });
 
   router.get('/start-fireworks', (req, res) => {
-      firebaseWriter.triggerFireworks();
-      res.send("Fireworks started");
+    firebaseWriter.triggerFireworks();
+    res.send("Fireworks started");
   });
 
-  
+
 
   router.post('/buzzword', (req, res) => {
     let topic = req.body.input;
