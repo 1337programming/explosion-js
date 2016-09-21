@@ -7,6 +7,7 @@ import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {HomeComponent} from './home.component';
 import {Fireworks} from './components/fireworks/fireworks.component';
 import {FireworkTest} from './components/fireworks-test/fireworks-test.component';
+import {Loading} from './components/loading/loading.component';
 
 // Routes
 import {routing} from './home.router';
@@ -21,7 +22,7 @@ import {HomeService} from './services/home.service';
   imports: [
     CommonModule, HttpModule, ReactiveFormsModule, FormsModule, routing
   ],
-  declarations: [HomeComponent, Fireworks, FireworkTest],
+  declarations: [HomeComponent, Fireworks, FireworkTest, Loading],
   providers: [Audio, Samples, HomeService]
 })
 export class HomeModule {

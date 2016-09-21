@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private expload: boolean;
   private questions:Array<Question>;
   private loading:boolean;
+  private compLoad:boolean;
   private count:string;
   
   private welovefontSafe:SafeStyle;
@@ -40,12 +41,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   private googleFontSafe2:SafeStyle;
   
   constructor(private homeService: HomeService, private sanitizer:DomSanitizer) {
-    this.loading = false;
+    this.loading = true;
+    this.compLoad = true;
     this.topic = '';
     this.buzzword = '';
     this.count = '10';
     this.showBuzzword = false;
     this.expload = false;
+    this.questions = [];
     this.welovefontSafe = sanitizer.bypassSecurityTrustStyle('http://weloveiconfonts.com/api/?family=iconicfill');
     this.googleFontSafe1 = sanitizer.bypassSecurityTrustStyle('http://fonts.googleapis.com/css?family=Arvo');
     this.googleFontSafe2 = sanitizer.bypassSecurityTrustStyle('http://fonts.googleapis.com/css?family=Lato:300|Oswald');
@@ -62,6 +65,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   
   public ngOnInit() {
+    setTimeout(() => {
+      this.compLoad = false;
+    }, 8000);
     this.homeService.openSocket();
     this.showSuccess('Connected');
     this.loading = true;
@@ -78,6 +84,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
     this.homeService.getUserInfo().subscribe((res:EID) => {
       this.loading = false;
+      if (this.questions.length > 0) {
+        this.compLoad = true;
+      }
       console.log('USER ID', res);
       this.homeService.setName(res.enterpriseId)
     }, (err) => {

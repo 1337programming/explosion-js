@@ -1,25 +1,30 @@
 <!-- Sanitized Font Urls -->
 
-<div>
-    <div (click)="closeNotification()" class="notifications elementToFadeInAndOut" [hidden]="!showNotification">
-        <div class="notify" [class.notification-error]="!success" [class.notification-success]="success"
-             [innerHTML]="message">
+<div *ngIf="!compLoad">
+    <div>
+        <div (click)="closeNotification()" class="notifications elementToFadeInAndOut" [hidden]="!showNotification">
+            <div class="notify" [class.notification-error]="!success" [class.notification-success]="success"
+                 [innerHTML]="message">
+            </div>
+        </div>
+        <div class="wrap center"> <!-- Just to center ver and hor -->
+            <form *ngFor="let question of questions" (submit)="submitQuestion(question.input, question.name)">
+                <div>
+                    <div class="wrap-label">
+                        <label>{{question.description}}</label>
+                        <p class="iconicfill-pen-alt2"></p>
+                    </div>
+                    <input [disabled]="question.disabled" type="text" id="{{question.name}}" name="{{question.name}}"
+                           autocomplete="off" autocorrect="off" [(ngModel)]="question.input">
+                </div>
+            </form>
+            <button class="myButton" [class.loading]="loading" data-label="Submit All" [disabled]="loading"
+                    (click)="submitAll()">Submit All
+            </button>
         </div>
     </div>
-    <div class="wrap center"> <!-- Just to center ver and hor -->
-        <form *ngFor="let question of questions" (submit)="submitQuestion(question.input, question.name)">
-            <div>
-                <div class="wrap-label">
-                    <label>{{question.description}}</label>
-                    <p class="iconicfill-pen-alt2"></p>
-                </div>
-                <input [disabled]="question.disabled" type="text" id="{{question.name}}" name="{{question.name}}"
-                       autocomplete="off" autocorrect="off" [(ngModel)]="question.input">
-            </div>
-        </form>
-        <button class="myButton" [class.loading]="loading" data-label="Submit All" [disabled]="loading"
-                (click)="submitAll()">Submit All
-        </button>
-    </div>
+    <fireworks *ngIf="expload"></fireworks>
 </div>
-<fireworks *ngIf="expload"></fireworks>
+<div *ngIf="compLoad">
+    <loading></loading>
+</div>
