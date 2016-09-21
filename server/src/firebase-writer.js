@@ -20,8 +20,12 @@ var FirebaseWriter = (function () {
     }
     FirebaseWriter.prototype.addNewQuestions = function (question, name) {
         if (!name) {
-            var questionLength = this.surveyQuestions.questions.length + 1;
+            var questionLength = this.surveyQuestions.questions.length;
             name = "question" + questionLength;
+        }
+        //disable the existing questions
+        for (var i in this.surveyQuestions.questions) {
+            this.surveyQuestions.questions[i]['disabled'] = true;
         }
         var newQuestion = { "description": question, "name": name };
         this.surveyQuestions.questions.push(newQuestion);
@@ -30,15 +34,22 @@ var FirebaseWriter = (function () {
     };
     FirebaseWriter.prototype.restoreDefaultQuestions = function () {
         this.surveyQuestions = {
+            "fireworks": "false",
             "questions": [
                 {
                     "name": "question0",
-                    "description": "What technology are you excited to learn about at the workshops?"
+                    "description": "What is your favorite kind of pizza?"
                 }
             ]
         };
         this.questionRef.set(this.surveyQuestions);
         console.log("questions restored.");
+    };
+    FirebaseWriter.prototype.triggerFireworks = function () {
+        var fireworksRef = firebase.database().ref('survey-questions/fireworks');
+        fireworksRef.set(true);
+        fireworksRef.set(false);
+        // setTimeout(function() { fireworksRef.set(false); }, 2000);
     };
     return FirebaseWriter;
 }());
