@@ -13,3 +13,11 @@ body {
   background: -ms-radial-gradient(center, ellipse cover, #4f3b5b 0%, #231733 100%);
   background: radial-gradient(ellipse at center, #4f3b5b 0%, #231733 100%);
 }
+
+.wrap.center {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -20,7 +20,4 @@ let config = {
 };
 Firebase.initializeApp(config);
 
-let database = Firebase.database();
-console.log('database', database);
-
-export const FIREBASE = Firebase;
+export const FIREBASE:any = Firebase;

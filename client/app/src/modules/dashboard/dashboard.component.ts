@@ -5,6 +5,7 @@ import {Samples} from 'app/src/common/services/samples.service';
 import {Audio} from 'app/src/common/services/audio.service';
 import {Settings, FIREBASE} from 'app/src/core/settings/settings';
 import 'rxjs/add/operator/bufferTime';
+import {DashboardService} from './services/dashboard.service';
 let io = require('socket.io-client');
 
 let style = require('!!raw!sass!./views/dashboard.scss');
@@ -40,12 +41,12 @@ export class DashboardComponent {
   
   constructor(private random: Random,
               private samples: Samples,
+              private dashboardService:DashboardService,
               @Inject('notes') private notes,
               @Inject('audioContext') private audioCtx) {
     
     
-    this.socket = io.connect(Settings.API_ENDPOINT);
-    this.socket.on('Topic', (topic) => {
+    this.dashboardService.topicAdded.subscribe((topic) => {
       this.renderChime(topic);
     });
   }

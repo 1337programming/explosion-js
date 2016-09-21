@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
 import {Response} from '@angular/http';
 import {DomSanitizer, SafeUrl, SafeStyle} from '@angular/platform-browser';
 import {Observable} from 'rxjs';
@@ -20,7 +20,7 @@ let submit = require('!!raw!sass!./views/submit.scss');
   styles: [style, notification, fade, submit],
   providers: [HomeService]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   
   @ViewChild(Fireworks) fireworks: Fireworks;
   
@@ -54,6 +54,7 @@ export class HomeComponent implements OnInit {
     questionRef.on('value', (data) => {
       let info = data.val();
       if (info.fireworks === true) {
+        this.expload = true;
         this.fireworks.run();
       }
       this.questions = info.questions;
@@ -61,6 +62,7 @@ export class HomeComponent implements OnInit {
   }
   
   public ngOnInit() {
+    this.homeService.openSocket();
     this.showSuccess('Connected');
     this.loading = true;
     this.homeService.buzzwordAdded.subscribe((res) => {
@@ -80,8 +82,12 @@ export class HomeComponent implements OnInit {
       this.homeService.setName(res.enterpriseId)
     }, (err) => {
       this.loading = false;
-      this.showError(err);
+      this.showError('Unable to get user info');
     });
+  }
+  
+  public ngOnDestroy() {
+    this.homeService.closeSocket();
   }
   
   private submitQuestion(input, name) {

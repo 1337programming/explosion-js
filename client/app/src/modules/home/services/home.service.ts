@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/observable';
 import * as io from 'socket.io-client';
 import {Settings, FIREBASE} from 'app/src/core/settings/settings';
 import {EID} from '../interfaces/home.interface';
+import Socket = SocketIOClient.Socket;
 
 declare let window;
 
@@ -14,17 +15,14 @@ export class HomeService {
   public buzzwordAdded: EventEmitter<any>;
   public detonate: EventEmitter<any>;
   
-  private socket: any;
+  private socket: Socket;
   private headers: Headers;
   
   constructor(private http: Http) {
     this.buzzwordAdded = new EventEmitter();
     this.detonate = new EventEmitter();
-    console.log(Settings.API_ENDPOINT);
-    this.socket = io.connect(`${Settings.API_ENDPOINT}`);
     this.headers = new Headers();
     this.headers.append('Content-Type', 'application/json');
-    this.setEvents();
   }
   
   public submitQuestion(input: string, name: string): Observable<Response> {
@@ -51,6 +49,15 @@ export class HomeService {
     } else {
       return 'accenture.eid';
     }
+  }
+  
+  public openSocket() {
+    this.socket = io.connect(`${Settings.API_ENDPOINT}`);
+    this.setEvents();
+  }
+  
+  public closeSocket() {
+    this.socket.disconnect();
   }
   
   private setEvents() {
