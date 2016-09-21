@@ -49,12 +49,8 @@ export class FirebaseWriter {
             "questions": [
                 {
                     "name": "question0",
-<<<<<<< HEAD
-                    "description": "What is your favorite kind of pizza?"
-=======
-                    "description": "What technology are you excited to learn about at the workshops?",
+                    "description": "What is your favorite kind of pizza?",
                     "hidden": false
->>>>>>> upstream/tawserver
                 }
             ]
         };

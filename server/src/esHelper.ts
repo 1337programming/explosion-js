@@ -10,9 +10,12 @@ export class EsHelper {
     });
 
     private createEsObject(indexName, label, content, headers) {
+        //replace spaces with underscores
+        let contentCleaned = content.split(' ').join('_');
+        
         var esObject = {
             'created_at': new Date(),
-            'answer': content,
+            'answer': contentCleaned,
             'question': label,
             'headers': headers
         };

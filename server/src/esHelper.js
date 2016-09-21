@@ -8,9 +8,10 @@ var EsHelper = (function () {
         });
     }
     EsHelper.prototype.createEsObject = function (indexName, label, content, headers) {
+        var contentCleaned = content.replace(' ', '-');
         var esObject = {
             'created_at': new Date(),
-            'answer': content,
+            'answer': contentCleaned,
             'question': label,
             'headers': headers
         };

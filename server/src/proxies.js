@@ -43,12 +43,28 @@ function DefineProxies(emitter, esHelper, firebaseWriter) {
     });
     router.post('/add-question', function (req, res) {
         if (req.body) {
-            console.log(req.body);
+            console.log(JSON.stringify(req.body));
             res.statusCode = 200;
             var question = req.body.question;
+            if (req.body.request && req.body.request.intent) {
+                question = req.body.request.intent.slots.actions.value;
+                //String manipulation cleanup
+                question = question.charAt(0).toUpperCase() + question.slice(1) + '?';
+                console.log("question parsed from alexa", question);
+            }
             var name_1 = req.body.name;
             firebaseWriter.addNewQuestions(question, name_1);
-            res.send("OK");
+            var alexaResponse = {
+                version: "1.00",
+                response: {
+                    outputSpeech: {
+                        type: "PlainText",
+                        text: "Hey architects, " + question + "?"
+                    }
+                },
+                sessionAttributes: {}
+            };
+            res.send(JSON.stringify(alexaResponse));
         }
         else {
             res.statusCode = 500;
@@ -59,9 +75,20 @@ function DefineProxies(emitter, esHelper, firebaseWriter) {
         firebaseWriter.restoreDefaultQuestions();
         res.send("Questions Restored.");
     });
-    router.get('/start-fireworks', function (req, res) {
+    router.post('/start-fireworks', function (req, res) {
         firebaseWriter.triggerFireworks();
-        res.send("Fireworks started");
+        var alexaResponse = {
+            version: "1.00",
+            response: {
+                outputSpeech: {
+                    type: "PlainText",
+                    text: "Roger that. Ending with a bang!"
+                }
+            },
+            sessionAttributes: {}
+        };
+        res.statusCode = 200;
+        res.send(JSON.stringify(alexaResponse));
     });
     router.post('/buzzword', function (req, res) {
         var topic = req.body.input;

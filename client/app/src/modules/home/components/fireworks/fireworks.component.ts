@@ -126,10 +126,10 @@ export class Fireworks implements AfterViewInit, OnInit {
   }
   
   public run(): void {
-    let initialLaunchCount: number = 40, index: number;
+    let initialLaunchCount: number = 10, index: number;
     let delay: number = 750;
     if (detectmobile()) {
-      initialLaunchCount = 20;
+      initialLaunchCount = 10;
       delay = 1500;
     }
     this.showTarget = false;
