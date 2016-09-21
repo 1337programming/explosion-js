@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
+import {Component, OnInit, ViewChild, OnDestroy, AfterViewInit} from '@angular/core';
 import {Response} from '@angular/http';
 import {DomSanitizer, SafeUrl, SafeStyle} from '@angular/platform-browser';
 import {Observable} from 'rxjs';
@@ -20,7 +20,7 @@ let submit = require('!!raw!sass!./views/submit.scss');
   styles: [style, notification, fade, submit],
   providers: [HomeService]
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   
   @ViewChild(Fireworks) fireworks: Fireworks;
   
@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private showNotification: boolean;
   private success:boolean;
   private showBuzzword: boolean;
-  private expload: boolean;
+  private showCanvas: boolean;
   private questions:Array<Question>;
   private loading:boolean;
   private count:string;
@@ -45,21 +45,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.buzzword = '';
     this.count = '10';
     this.showBuzzword = false;
-    this.expload = false;
+    this.showCanvas = false;
     this.questions = [];
     this.welovefontSafe = sanitizer.bypassSecurityTrustStyle('http://weloveiconfonts.com/api/?family=iconicfill');
     this.googleFontSafe1 = sanitizer.bypassSecurityTrustStyle('http://fonts.googleapis.com/css?family=Arvo');
     this.googleFontSafe2 = sanitizer.bypassSecurityTrustStyle('http://fonts.googleapis.com/css?family=Lato:300|Oswald');
-    let questionRef = FIREBASE.database().ref('survey-questions');
-    console.log('reference', questionRef);
-    questionRef.on('value', (data) => {
-      let info = data.val();
-      if (info.fireworks === true) {
-        this.expload = true;
-        this.fireworks.run();
-      }
-      this.questions = info.questions;
-    });
   }
   
   public ngOnInit() {
@@ -72,7 +62,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.showError(err);
     });
     this.homeService.detonate.subscribe((res) => {
-      this.expload = true;
+      this.showCanvas = true;
       this.fireworks.run();
     }, (err) => {
       this.showError(err);
@@ -84,6 +74,25 @@ export class HomeComponent implements OnInit, OnDestroy {
     }, (err) => {
       this.loading = false;
       this.showError('Unable to get user info');
+    });
+  }
+  
+  ngAfterViewInit() {
+    let questionRef = FIREBASE.database().ref('survey-questions');
+    questionRef.on('value', (data) => {
+      let info = data.val();
+      if (info.fireworks === true) {
+        if (this.fireworks) {
+          this.fireworks.run();
+        } else {
+          //@TODO this is a hack, why is fireworks not defined
+          setTimeout(() => {
+            this.fireworks.run();
+          }, 2000);
+        }
+        this.showCanvas = true;
+      }
+      this.questions = info.questions;
     });
   }
   

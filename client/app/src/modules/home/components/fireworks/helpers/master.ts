@@ -1,5 +1,10 @@
 import {MasterI} from '../interfaces/fireworks.interface';
+import {detectmobile} from './helpers';
 
+let particleCount = 450;
+if (detectmobile()) {
+  particleCount = 100;
+}
 export let Master: MasterI = {
   partSpeed: 5,
   partSpeedVariance: 10,
@@ -14,7 +19,7 @@ export let Master: MasterI = {
   fworkSpeed: 2,
   fworkAccel: 15,
   currentHue: 170,
-  particleCount: 450,
+  particleCount: particleCount,
   dt: 0,
   cw: innerWidth,
   ch: innerHeight,

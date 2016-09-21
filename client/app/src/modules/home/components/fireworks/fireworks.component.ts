@@ -1,6 +1,6 @@
 import {Component, OnInit, AfterViewInit, ViewChild, ElementRef, HostListener} from '@angular/core';
 import {Master, BuildCTX} from './helpers/master';
-import {rand} from "./helpers/helpers";
+import {rand, detectmobile} from "./helpers/helpers";
 import {Firework} from './classes/firework';
 import {Particle} from './classes/particle';
 import {Samples} from 'app/src/common/services/samples.service';
@@ -128,7 +128,7 @@ export class Fireworks implements AfterViewInit, OnInit {
   public run(): void {
     let initialLaunchCount: number = 40, index: number;
     let delay: number = 750;
-    if (this.detectmob()) {
+    if (detectmobile()) {
       initialLaunchCount = 20;
       delay = 1500;
     }
@@ -144,23 +144,7 @@ export class Fireworks implements AfterViewInit, OnInit {
       }, initialLaunchCount * delay);
     }
   }
-  
-  private detectmob() {
-    if (navigator.userAgent.match(/Android/i)
-      || navigator.userAgent.match(/webOS/i)
-      || navigator.userAgent.match(/iPhone/i)
-      || navigator.userAgent.match(/iPad/i)
-      || navigator.userAgent.match(/iPod/i)
-      || navigator.userAgent.match(/BlackBerry/i)
-      || navigator.userAgent.match(/Windows Phone/i)
-    ) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
-  
+
   private canvasLoop() {
     requestAnimationFrame(() => {
       this.canvasLoop();

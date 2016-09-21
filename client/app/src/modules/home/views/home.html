@@ -23,8 +23,8 @@
             </button>
         </div>
     </div>
-    <fireworks *ngIf="expload"></fireworks>
+    <fireworks *ngIf="showCanvas"></fireworks>
 </div>
-<div *ngIf="loading || questions.length === 0">
+<div *ngIf="loading && questions.length === 0">
     <loading></loading>
 </div>
