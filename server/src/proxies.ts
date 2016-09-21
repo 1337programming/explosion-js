@@ -73,7 +73,7 @@ export function DefineProxies(emitter, esHelper, firebaseWriter) {
         response: {
           outputSpeech: {
             type: "PlainText",
-            text: "Hey group, " + question + "?"
+            text: "Hey architects, " + question + "?"
           }
         },
         sessionAttributes: {}
@@ -91,12 +91,22 @@ export function DefineProxies(emitter, esHelper, firebaseWriter) {
     res.send("Questions Restored.");
   });
 
-  router.get('/start-fireworks', (req, res) => {
+  router.post('/start-fireworks', (req, res) => {
     firebaseWriter.triggerFireworks();
-    res.send("Fireworks started");
+
+    let alexaResponse = {
+      version: "1.00",
+      response: {
+        outputSpeech: {
+          type: "PlainText",
+          text: "Roger that. Ending with a bang!"
+        }
+      },
+      sessionAttributes: {}
+    }
+    res.statusCode = 200;
+    res.send(JSON.stringify(alexaResponse));
   });
-
-
 
   router.post('/buzzword', (req, res) => {
     let topic = req.body.input;

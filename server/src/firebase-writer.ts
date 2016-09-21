@@ -31,6 +31,7 @@ export class FirebaseWriter {
             let questionLength = this.surveyQuestions.questions.length;
             name = "question" + questionLength;
         }
+        
         let newQuestion = { "description": question, "name": name };
         this.surveyQuestions.questions.push(newQuestion);
 
@@ -44,7 +45,8 @@ export class FirebaseWriter {
             "questions": [
                 {
                     "name": "question0",
-                    "description": "What technology are you excited to learn about at the workshops?"
+                    "description": "What technology are you excited to learn about at the workshops?",
+                    "hidden": false
                 }
             ]
         };
