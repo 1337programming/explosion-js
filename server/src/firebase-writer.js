@@ -23,6 +23,10 @@ var FirebaseWriter = (function () {
             var questionLength = this.surveyQuestions.questions.length + 1;
             name = "question" + questionLength;
         }
+        //disable the existing questions
+        for (var i in this.surveyQuestions.questions) {
+            this.surveyQuestions.questions[i]['disabled'] = true;
+        }
         var newQuestion = { "description": question, "name": name };
         this.surveyQuestions.questions.push(newQuestion);
         this.questionRef.set(this.surveyQuestions);
@@ -30,10 +34,11 @@ var FirebaseWriter = (function () {
     };
     FirebaseWriter.prototype.restoreDefaultQuestions = function () {
         this.surveyQuestions = {
+            "fireworks": "false",
             "questions": [
                 {
                     "name": "question0",
-                    "description": "What technology are you excited to learn about at the workshops?"
+                    "description": "What is your favorite kind of pizza?"
                 }
             ]
         };

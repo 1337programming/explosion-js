@@ -31,6 +31,12 @@ export class FirebaseWriter {
             let questionLength = this.surveyQuestions.questions.length + 1;
             name = "question" + questionLength;
         }
+
+        //disable the existing questions
+        for (let i in this.surveyQuestions.questions) {
+            this.surveyQuestions.questions[i]['disabled'] = true;
+        }
+
         let newQuestion = { "description": question, "name": name };
         this.surveyQuestions.questions.push(newQuestion);
 
@@ -44,7 +50,7 @@ export class FirebaseWriter {
             "questions": [
                 {
                     "name": "question0",
-                    "description": "What technology are you excited to learn about at the workshops?"
+                    "description": "What is your favorite kind of pizza?"
                 }
             ]
         };
