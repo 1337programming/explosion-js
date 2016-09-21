@@ -31,10 +31,13 @@
 
 }
 
+$button-color: rgba(60, 179, 113, 1);
+$button-color-active: rgba(9, 124, 9, 1);
+
 .myButton:before {
   z-index:2;
   color:#fff;
-  background-color:#3e87ec;
+  background-color:$button-color;
   content:attr(data-label);
 }
 
@@ -49,7 +52,7 @@
 }
 
 button:active:before {
-  background-color:#3571c8;
+  background-color:$button-color-active;
 }
 
 button.loading {

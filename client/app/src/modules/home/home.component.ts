@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   private showCanvas: boolean;
   private questions:Array<Question>;
   private loading:boolean;
+  private pageLoad:boolean;
   private count:string;
   
   private welovefontSafe:SafeStyle;
@@ -41,6 +42,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   
   constructor(private homeService: HomeService, private sanitizer:DomSanitizer) {
     this.loading = true;
+    this.pageLoad = false;
     this.topic = '';
     this.buzzword = '';
     this.count = '10';
@@ -75,6 +77,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     let questionRef = FIREBASE.database().ref('survey-questions');
     questionRef.on('value', (data) => {
+      this.pageLoad = true;
       let info = data.val();
       if (info.fireworks === true) {
         if (this.fireworks) {
@@ -86,6 +89,8 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
           }, 2000);
         }
         this.showCanvas = true;
+      } else {
+        this.showCanvas = false;
       }
       this.questions = info.questions;
     });

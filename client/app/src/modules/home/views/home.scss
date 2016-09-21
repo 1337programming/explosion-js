@@ -107,27 +107,28 @@ label {
 }
 
 input:disabled {
-  animation: pulsey 2s infinite;
+  animation: pulsey 4s infinite;
   cursor: not-allowed;
 }
 
-$pulse-color: rgba(255, 105, 117, 0.76);
-$pulse-color2: rgba(255, 69, 72, 0.76);
+$pulse-color: rgba(174, 165, 173, 0.4);
+$pulse-color2: rgba(196, 187, 195, 0.4);
 @keyframes pulsey {
   0% {
     background-color: $pulse-color;
-    opacity: 0.25;
   }
   50% {
     background-color: $pulse-color2;
-    opacity: 0.75;
   }
   100% {
     background-color: $pulse-color;
-    opacity: 0.25;
   }
 }
 
 .heading {
   color: #10ad10;
+}
+
+label.disabled {
+  color: #b73d3d;
 }

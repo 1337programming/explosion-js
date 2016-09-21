@@ -11,7 +11,7 @@
             <form *ngFor="let question of questions" (submit)="submitQuestion(question.input, question.name)">
                 <div>
                     <div class="wrap-label">
-                        <label>{{question.description}}</label>
+                        <label [class.disabled]="question.disabled">{{question.description}}</label>
                         <p class="iconicfill-pen-alt2"></p>
                     </div>
                     <input [disabled]="question.disabled" type="text" id="{{question.name}}" name="{{question.name}}"
@@ -25,4 +25,6 @@
     </div>
     <fireworks [hidden]="!showCanvas"></fireworks>
 </div>
-<loading [hidden]="!loading && questions.length > 0"></loading>
+<div [hidden]="!loading">
+    <loading [hidden]="questions.length > 0"></loading>
+</div>
