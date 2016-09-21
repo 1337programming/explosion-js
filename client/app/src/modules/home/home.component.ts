@@ -56,11 +56,6 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.homeService.openSocket();
     this.showSuccess('Connected');
     this.loading = true;
-    this.homeService.buzzwordAdded.subscribe((res) => {
-      this.showBuzzword = true;
-    }, (err) => {
-      this.showError(err);
-    });
     this.homeService.detonate.subscribe((res) => {
       this.showCanvas = true;
       this.fireworks.run();
