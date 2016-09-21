@@ -33,7 +33,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   private expload: boolean;
   private questions:Array<Question>;
   private loading:boolean;
-  private compLoad:boolean;
   private count:string;
   
   private welovefontSafe:SafeStyle;
@@ -42,7 +41,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   
   constructor(private homeService: HomeService, private sanitizer:DomSanitizer) {
     this.loading = true;
-    this.compLoad = true;
     this.topic = '';
     this.buzzword = '';
     this.count = '10';
@@ -81,9 +79,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
     this.homeService.getUserInfo().subscribe((res:EID) => {
       this.loading = false;
-      if (this.questions.length > 0) {
-        this.compLoad = false;
-      }
       console.log('USER ID', res);
       this.homeService.setName(res.enterpriseId)
     }, (err) => {
