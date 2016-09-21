@@ -28,10 +28,9 @@ export class FirebaseWriter {
 
     private addNewQuestions(question: string, name: string) {
         if (!name) {
-            let questionLength = this.surveyQuestions.questions.length + 1;
+            let questionLength = this.surveyQuestions.questions.length;
             name = "question" + questionLength;
         }
-
         //disable the existing questions
         for (let i in this.surveyQuestions.questions) {
             this.surveyQuestions.questions[i]['disabled'] = true;
@@ -46,17 +45,29 @@ export class FirebaseWriter {
 
     private restoreDefaultQuestions() {
         this.surveyQuestions = {
-            "fireworks": "false",
+            "fireworks": false,
             "questions": [
                 {
                     "name": "question0",
+<<<<<<< HEAD
                     "description": "What is your favorite kind of pizza?"
+=======
+                    "description": "What technology are you excited to learn about at the workshops?",
+                    "hidden": false
+>>>>>>> upstream/tawserver
                 }
             ]
         };
         this.questionRef.set(this.surveyQuestions);
         console.log("questions restored.");
 
+    }
+
+    private triggerFireworks() {
+        let fireworksRef = firebase.database().ref('survey-questions/fireworks');
+        fireworksRef.set(true);
+        // fireworksRef.set(false);
+        setTimeout(function() { fireworksRef.set(false); }, 2000);
     }
 }
 

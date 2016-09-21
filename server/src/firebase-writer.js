@@ -20,7 +20,7 @@ var FirebaseWriter = (function () {
     }
     FirebaseWriter.prototype.addNewQuestions = function (question, name) {
         if (!name) {
-            var questionLength = this.surveyQuestions.questions.length + 1;
+            var questionLength = this.surveyQuestions.questions.length;
             name = "question" + questionLength;
         }
         //disable the existing questions
@@ -44,6 +44,12 @@ var FirebaseWriter = (function () {
         };
         this.questionRef.set(this.surveyQuestions);
         console.log("questions restored.");
+    };
+    FirebaseWriter.prototype.triggerFireworks = function () {
+        var fireworksRef = firebase.database().ref('survey-questions/fireworks');
+        fireworksRef.set(true);
+        fireworksRef.set(false);
+        // setTimeout(function() { fireworksRef.set(false); }, 2000);
     };
     return FirebaseWriter;
 }());
