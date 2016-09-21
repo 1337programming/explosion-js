@@ -28,17 +28,32 @@ export class FirebaseWriter {
 
     private addNewQuestions(question: string, name: string) {
         if (!name) {
-            let questionLength = this.surveyQuestions.questions.length;
+            let questionLength = this.surveyQuestions.questions.length + 1;
             name = "question" + questionLength;
         }
         let newQuestion = { "description": question, "name": name };
         this.surveyQuestions.questions.push(newQuestion);
-        
+
         this.questionRef.set(this.surveyQuestions);
         console.log("question added: ", question);
     }
+
+    private restoreDefaultQuestions() {
+        this.surveyQuestions = {
+            "fireworks": "false",
+            "questions": [
+                {
+                    "name": "question0",
+                    "description": "What technology are you excited to learn about at the workshops?"
+                }
+            ]
+        };
+        this.questionRef.set(this.surveyQuestions);
+        console.log("questions restored.");
+
+    }
 }
-    
+
 
 
 
