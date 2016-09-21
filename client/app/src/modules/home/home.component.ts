@@ -65,9 +65,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   
   public ngOnInit() {
-    setTimeout(() => {
-      this.compLoad = false;
-    }, 8000);
     this.homeService.openSocket();
     this.showSuccess('Connected');
     this.loading = true;
@@ -85,7 +82,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.homeService.getUserInfo().subscribe((res:EID) => {
       this.loading = false;
       if (this.questions.length > 0) {
-        this.compLoad = true;
+        this.compLoad = false;
       }
       console.log('USER ID', res);
       this.homeService.setName(res.enterpriseId)
