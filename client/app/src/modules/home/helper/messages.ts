@@ -20,6 +20,7 @@ const emptyWarningMessages: Array<string> = [
 
 const loadingWarningMessages: Array<string> = [
   'Whoa slow down!',
+  'Unable to get a response',
   'Still processing last request',
   'Awaiting server response',
   'Awaiting connection from host',

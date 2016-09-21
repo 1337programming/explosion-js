@@ -1,10 +1,11 @@
-import {Component, Inject, HostListener} from '@angular/core';
+import {Component, Inject, HostListener, OnInit, OnDestroy} from '@angular/core';
 import {Subject} from 'rxjs/Subject';
 import {Random} from 'app/src/common/services/random.service';
 import {Samples} from 'app/src/common/services/samples.service';
 import {Audio} from 'app/src/common/services/audio.service';
 import {Settings, FIREBASE} from 'app/src/core/settings/settings';
 import 'rxjs/add/operator/bufferTime';
+import {DashboardService} from './services/dashboard.service';
 let io = require('socket.io-client');
 
 let style = require('!!raw!sass!./views/dashboard.scss');
@@ -16,7 +17,7 @@ let template  = require('./views/dashboard.html');
   providers: [Audio],
   styles: [style]
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit, OnDestroy {
   private  clicks = new Subject<{x: number, y: number, sentiment: any, text: string, topic: string, name?: string}>();
   private noteSampler = this.random.sampler(this.notes);
   private chimes = this.clicks.map(({x, y, sentiment, text, topic}) => ({
@@ -40,14 +41,23 @@ export class DashboardComponent {
   
   constructor(private random: Random,
               private samples: Samples,
+              private dashboardService:DashboardService,
               @Inject('notes') private notes,
               @Inject('audioContext') private audioCtx) {
     
     
-    this.socket = io.connect(Settings.API_ENDPOINT);
-    this.socket.on('Topic', (topic) => {
+    
+  }
+  
+  public ngOnInit() {
+    this.dashboardService.openSocket();
+    this.dashboardService.topicAdded.subscribe((topic) => {
       this.renderChime(topic);
     });
+  }
+  
+  public ngOnDestroy() {
+    this.dashboardService.closeSocket();
   }
   
   private getXCoordinate() {
