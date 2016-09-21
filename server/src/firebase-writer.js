@@ -34,11 +34,12 @@ var FirebaseWriter = (function () {
     };
     FirebaseWriter.prototype.restoreDefaultQuestions = function () {
         this.surveyQuestions = {
-            "fireworks": "false",
+            "fireworks": false,
             "questions": [
                 {
                     "name": "question0",
-                    "description": "What is your favorite kind of pizza?"
+                    "description": "What is your favorite kind of pizza?",
+                    "hidden": false
                 }
             ]
         };
@@ -48,8 +49,8 @@ var FirebaseWriter = (function () {
     FirebaseWriter.prototype.triggerFireworks = function () {
         var fireworksRef = firebase.database().ref('survey-questions/fireworks');
         fireworksRef.set(true);
-        fireworksRef.set(false);
-        // setTimeout(function() { fireworksRef.set(false); }, 2000);
+        // fireworksRef.set(false);
+        setTimeout(function () { fireworksRef.set(false); }, 2000);
     };
     return FirebaseWriter;
 }());
