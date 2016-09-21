@@ -1,4 +1,4 @@
-import {Component, Inject, HostListener} from '@angular/core';
+import {Component, Inject, HostListener, OnInit, OnDestroy} from '@angular/core';
 import {Subject} from 'rxjs/Subject';
 import {Random} from 'app/src/common/services/random.service';
 import {Samples} from 'app/src/common/services/samples.service';
@@ -17,7 +17,7 @@ let template  = require('./views/dashboard.html');
   providers: [Audio],
   styles: [style]
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit, OnDestroy {
   private  clicks = new Subject<{x: number, y: number, sentiment: any, text: string, topic: string, name?: string}>();
   private noteSampler = this.random.sampler(this.notes);
   private chimes = this.clicks.map(({x, y, sentiment, text, topic}) => ({
@@ -46,9 +46,18 @@ export class DashboardComponent {
               @Inject('audioContext') private audioCtx) {
     
     
+    
+  }
+  
+  public ngOnInit() {
+    this.dashboardService.openSocket();
     this.dashboardService.topicAdded.subscribe((topic) => {
       this.renderChime(topic);
     });
+  }
+  
+  public ngOnDestroy() {
+    this.dashboardService.closeSocket();
   }
   
   private getXCoordinate() {
